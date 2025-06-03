@@ -1,0 +1,7 @@
+{
+  "name": "Gira X1",
+  "hacs": "1.6.0",
+  "domains": ["light", "switch", "cover", "sensor", "binary_sensor"],
+  "iot_class": "Local Polling",
+  "homeassistant": "2023.1.0"
+}

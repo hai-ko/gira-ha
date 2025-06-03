@@ -1,0 +1,4903 @@
+{
+	"functions": [
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a02u"
+				}
+			],
+			"displayName": "Wandleuchten",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a02t"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a03c"
+				}
+			],
+			"displayName": "Steckdose",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 15,
+			"uid": "a03b"
+		},
+		{
+			"channelType": "de.gira.schema.channels.BlindWithPos",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Step-Up-Down",
+					"uid": "a0b9"
+				},
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Up-Down",
+					"uid": "a0ba"
+				}
+			],
+			"displayName": "Zentral",
+			"functionType": "de.gira.schema.functions.Covering",
+			"iconID": 7,
+			"uid": "a0b8"
+		},
+		{
+			"channelType": "de.gira.schema.channels.BlindWithPos",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Step-Up-Down",
+					"uid": "a05y"
+				},
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Up-Down",
+					"uid": "a05z"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Position",
+					"uid": "a060"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Slat-Position",
+					"uid": "a061"
+				}
+			],
+			"displayName": "Fenster 1",
+			"functionType": "de.gira.schema.functions.Covering",
+			"iconID": 7,
+			"uid": "a047"
+		},
+		{
+			"channelType": "de.gira.schema.channels.BlindWithPos",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Step-Up-Down",
+					"uid": "a063"
+				},
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Up-Down",
+					"uid": "a064"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Position",
+					"uid": "a065"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Slat-Position",
+					"uid": "a066"
+				}
+			],
+			"displayName": "Fenster 2",
+			"functionType": "de.gira.schema.functions.Covering",
+			"iconID": 7,
+			"uid": "a062"
+		},
+		{
+			"channelType": "de.gira.schema.channels.BlindWithPos",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Step-Up-Down",
+					"uid": "a068"
+				},
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Up-Down",
+					"uid": "a069"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Position",
+					"uid": "a06a"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Slat-Position",
+					"uid": "a06b"
+				}
+			],
+			"displayName": "Fenster 3",
+			"functionType": "de.gira.schema.functions.Covering",
+			"iconID": 7,
+			"uid": "a067"
+		},
+		{
+			"channelType": "de.gira.schema.channels.BlindWithPos",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Step-Up-Down",
+					"uid": "a06d"
+				},
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Up-Down",
+					"uid": "a06e"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Position",
+					"uid": "a06f"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Slat-Position",
+					"uid": "a06g"
+				}
+			],
+			"displayName": "Fenster 4",
+			"functionType": "de.gira.schema.functions.Covering",
+			"iconID": 7,
+			"uid": "a06c"
+		},
+		{
+			"channelType": "de.gira.schema.channels.BlindWithPos",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Step-Up-Down",
+					"uid": "a032"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Up-Down",
+					"uid": "a033"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Position",
+					"uid": "a035"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Slat-Position",
+					"uid": "a036"
+				}
+			],
+			"displayName": "Fenster 5",
+			"functionType": "de.gira.schema.functions.Covering",
+			"iconID": 7,
+			"uid": "a031"
+		},
+		{
+			"channelType": "de.gira.schema.channels.BlindWithPos",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Step-Up-Down",
+					"uid": "a02w"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Up-Down",
+					"uid": "a02x"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Movement",
+					"uid": "a02y"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Position",
+					"uid": "a02z"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Slat-Position",
+					"uid": "a030"
+				}
+			],
+			"displayName": "Tür",
+			"functionType": "de.gira.schema.functions.Covering",
+			"iconID": 7,
+			"uid": "a02v"
+		},
+		{
+			"channelType": "de.gira.schema.channels.BlindWithPos",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Step-Up-Down",
+					"uid": "a06h"
+				},
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Up-Down",
+					"uid": "a06i"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Position",
+					"uid": "a06j"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Slat-Position",
+					"uid": "a06k"
+				}
+			],
+			"displayName": "Fenster West",
+			"functionType": "de.gira.schema.functions.Covering",
+			"iconID": 7,
+			"uid": "a00l"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a06m"
+				}
+			],
+			"displayName": "Wandleuchte/Steckdose",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a06l"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.Dimmer",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a009"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Shift",
+					"uid": "a00a"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Brightness",
+					"uid": "a00b"
+				}
+			],
+			"displayName": "Deckenlicht",
+			"functionType": "de.gira.schema.functions.KNX.Light",
+			"iconID": 1,
+			"uid": "a008"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.Dimmer",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a005"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Shift",
+					"uid": "a006"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Brightness",
+					"uid": "a007"
+				}
+			],
+			"displayName": "Deckenlicht Durchgang",
+			"functionType": "de.gira.schema.functions.KNX.Light",
+			"iconID": 1,
+			"uid": "a004"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.HeatingCoolingSwitchable",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Current",
+					"uid": "a002"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Set-Point",
+					"uid": "a003"
+				}
+			],
+			"displayName": "Heizkreis",
+			"functionType": "de.gira.schema.functions.KNX.HeatingCooling",
+			"iconID": 14,
+			"uid": "a001"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a00d"
+				}
+			],
+			"displayName": "Deckenlicht",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a00c"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a00f"
+				}
+			],
+			"displayName": "Deckenleuchte",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a00e"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a00h"
+				}
+			],
+			"displayName": "Spiegelleuchte",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a00g"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.HeatingCoolingSwitchable",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Current",
+					"uid": "a00j"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Set-Point",
+					"uid": "a00k"
+				}
+			],
+			"displayName": "Heizkreis",
+			"functionType": "de.gira.schema.functions.KNX.HeatingCooling",
+			"iconID": 14,
+			"uid": "a00i"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a00s"
+				}
+			],
+			"displayName": "Deckenlicht",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a00r"
+		},
+		{
+			"channelType": "de.gira.schema.channels.BlindWithPos",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Step-Up-Down",
+					"uid": "a00x"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Up-Down",
+					"uid": "a00y"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Position",
+					"uid": "a010"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Slat-Position",
+					"uid": "a011"
+				}
+			],
+			"displayName": "Jalousie",
+			"functionType": "de.gira.schema.functions.Covering",
+			"iconID": 7,
+			"uid": "a00w"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.HeatingCoolingSwitchable",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Current",
+					"uid": "a00u"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Set-Point",
+					"uid": "a00v"
+				}
+			],
+			"displayName": "Heizkreis",
+			"functionType": "de.gira.schema.functions.KNX.HeatingCooling",
+			"iconID": 14,
+			"uid": "a00t"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a013"
+				}
+			],
+			"displayName": "Deckenlicht",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a012"
+		},
+		{
+			"channelType": "de.gira.schema.channels.BlindWithPos",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Step-Up-Down",
+					"uid": "a018"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Up-Down",
+					"uid": "a019"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Position",
+					"uid": "a01b"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Slat-Position",
+					"uid": "a01c"
+				}
+			],
+			"displayName": "Jalousie Balkontür",
+			"functionType": "de.gira.schema.functions.Covering",
+			"iconID": 7,
+			"uid": "a017"
+		},
+		{
+			"channelType": "de.gira.schema.channels.BlindWithPos",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Step-Up-Down",
+					"uid": "a01e"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Up-Down",
+					"uid": "a01f"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Position",
+					"uid": "a01h"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Slat-Position",
+					"uid": "a01i"
+				}
+			],
+			"displayName": "Jalousie Fenster",
+			"functionType": "de.gira.schema.functions.Covering",
+			"iconID": 7,
+			"uid": "a01d"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.HeatingCoolingSwitchable",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Current",
+					"uid": "a015"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Set-Point",
+					"uid": "a016"
+				}
+			],
+			"displayName": "Heizkreis",
+			"functionType": "de.gira.schema.functions.KNX.HeatingCooling",
+			"iconID": 14,
+			"uid": "a014"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a01k"
+				}
+			],
+			"displayName": "Deckenlicht",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a01j"
+		},
+		{
+			"channelType": "de.gira.schema.channels.BlindWithPos",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Step-Up-Down",
+					"uid": "a01p"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Up-Down",
+					"uid": "a01q"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Position",
+					"uid": "a01s"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Slat-Position",
+					"uid": "a01t"
+				}
+			],
+			"displayName": "Jalousie",
+			"functionType": "de.gira.schema.functions.Covering",
+			"iconID": 7,
+			"uid": "a01o"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.HeatingCoolingSwitchable",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Current",
+					"uid": "a01m"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Set-Point",
+					"uid": "a01n"
+				}
+			],
+			"displayName": "Heizkreis",
+			"functionType": "de.gira.schema.functions.KNX.HeatingCooling",
+			"iconID": 14,
+			"uid": "a01l"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.Dimmer",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a02a"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Shift",
+					"uid": "a02b"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Brightness",
+					"uid": "a02c"
+				}
+			],
+			"displayName": "Stromschiene 1",
+			"functionType": "de.gira.schema.functions.KNX.Light",
+			"iconID": 1,
+			"uid": "a029"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.Dimmer",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a02e"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Shift",
+					"uid": "a02f"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Brightness",
+					"uid": "a02g"
+				}
+			],
+			"displayName": "Stromschiene 2",
+			"functionType": "de.gira.schema.functions.KNX.Light",
+			"iconID": 1,
+			"uid": "a02d"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.Dimmer",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a02i"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Shift",
+					"uid": "a02j"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Brightness",
+					"uid": "a02k"
+				}
+			],
+			"displayName": "Stromschiene 3",
+			"functionType": "de.gira.schema.functions.KNX.Light",
+			"iconID": 1,
+			"uid": "a02h"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a02m"
+				}
+			],
+			"displayName": "Tresen",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a06p"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a06r"
+				}
+			],
+			"displayName": "Schrank Nord",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a06q"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a06t"
+				}
+			],
+			"displayName": "Schrank Ost",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a06s"
+		},
+		{
+			"channelType": "de.gira.schema.channels.BlindWithPos",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Step-Up-Down",
+					"uid": "a01y"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Up-Down",
+					"uid": "a01z"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Position",
+					"uid": "a021"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Slat-Position",
+					"uid": "a022"
+				}
+			],
+			"displayName": "Jalousie Gartentür",
+			"functionType": "de.gira.schema.functions.Covering",
+			"iconID": 7,
+			"uid": "a01x"
+		},
+		{
+			"channelType": "de.gira.schema.channels.BlindWithPos",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Step-Up-Down",
+					"uid": "a024"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Up-Down",
+					"uid": "a025"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Position",
+					"uid": "a027"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Slat-Position",
+					"uid": "a028"
+				}
+			],
+			"displayName": "Jalousie Fenster",
+			"functionType": "de.gira.schema.functions.Covering",
+			"iconID": 7,
+			"uid": "a023"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.HeatingCoolingSwitchable",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Current",
+					"uid": "a01v"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Set-Point",
+					"uid": "a01w"
+				}
+			],
+			"displayName": "Heizkreis",
+			"functionType": "de.gira.schema.functions.KNX.HeatingCooling",
+			"iconID": 14,
+			"uid": "a01u"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.Dimmer",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a03q"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Shift",
+					"uid": "a03r"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Brightness",
+					"uid": "a03s"
+				}
+			],
+			"displayName": "Unter Empore",
+			"functionType": "de.gira.schema.functions.KNX.Light",
+			"iconID": 1,
+			"uid": "a03p"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a03u"
+				}
+			],
+			"displayName": "Schrank",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a078"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a07a"
+				}
+			],
+			"displayName": "Kamin",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a079"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a06v"
+				}
+			],
+			"displayName": "Steckdose",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 15,
+			"uid": "a06u"
+		},
+		{
+			"channelType": "de.gira.schema.channels.BlindWithPos",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Step-Up-Down",
+					"uid": "a03e"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Up-Down",
+					"uid": "a03f"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Movement",
+					"uid": "a03g"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Position",
+					"uid": "a03h"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Slat-Position",
+					"uid": "a03i"
+				}
+			],
+			"displayName": "Jalousie Tür",
+			"functionType": "de.gira.schema.functions.Covering",
+			"iconID": 7,
+			"uid": "a03d"
+		},
+		{
+			"channelType": "de.gira.schema.channels.BlindWithPos",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Step-Up-Down",
+					"uid": "a03k"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Up-Down",
+					"uid": "a03l"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Movement",
+					"uid": "a03m"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Position",
+					"uid": "a03n"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Slat-Position",
+					"uid": "a03o"
+				}
+			],
+			"displayName": "Jalousie Fenster",
+			"functionType": "de.gira.schema.functions.Covering",
+			"iconID": 7,
+			"uid": "a03j"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.Dimmer",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a04e"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Shift",
+					"uid": "a04f"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Brightness",
+					"uid": "a04g"
+				}
+			],
+			"displayName": "Stromschiene 1",
+			"functionType": "de.gira.schema.functions.KNX.Light",
+			"iconID": 1,
+			"uid": "a04d"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.Dimmer",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a04i"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Shift",
+					"uid": "a04j"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Brightness",
+					"uid": "a04k"
+				}
+			],
+			"displayName": "Stromschiene 2",
+			"functionType": "de.gira.schema.functions.KNX.Light",
+			"iconID": 1,
+			"uid": "a04h"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.Dimmer",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a04m"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Shift",
+					"uid": "a04n"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Brightness",
+					"uid": "a04o"
+				}
+			],
+			"displayName": "Stromschiene 3",
+			"functionType": "de.gira.schema.functions.KNX.Light",
+			"iconID": 1,
+			"uid": "a04l"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.Dimmer",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a04q"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Shift",
+					"uid": "a04r"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Brightness",
+					"uid": "a04s"
+				}
+			],
+			"displayName": "Esstisch",
+			"functionType": "de.gira.schema.functions.KNX.Light",
+			"iconID": 1,
+			"uid": "a04p"
+		},
+		{
+			"channelType": "de.gira.schema.channels.BlindWithPos",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Step-Up-Down",
+					"uid": "a042"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Up-Down",
+					"uid": "a043"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Movement",
+					"uid": "a044"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Position",
+					"uid": "a045"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Slat-Position",
+					"uid": "a046"
+				}
+			],
+			"displayName": "Jalousie",
+			"functionType": "de.gira.schema.functions.Covering",
+			"iconID": 7,
+			"uid": "a041"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.Dimmer",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0bh"
+				},
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Shift",
+					"uid": "a0bi"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Brightness",
+					"uid": "a0bj"
+				}
+			],
+			"displayName": "Decke",
+			"functionType": "de.gira.schema.functions.KNX.Light",
+			"iconID": 1,
+			"uid": "a0bg"
+		},
+		{
+			"channelType": "de.gira.schema.channels.BlindWithPos",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Step-Up-Down",
+					"uid": "a0bl"
+				},
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Up-Down",
+					"uid": "a0bm"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Position",
+					"uid": "a0bn"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Slat-Position",
+					"uid": "a0bo"
+				}
+			],
+			"displayName": "Fenster",
+			"functionType": "de.gira.schema.functions.Covering",
+			"iconID": 7,
+			"uid": "a0bk"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.HeatingCoolingSwitchable",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": false,
+					"name": "Current",
+					"uid": "a0bq"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Set-Point",
+					"uid": "a0br"
+				}
+			],
+			"displayName": "Heizkreis",
+			"functionType": "de.gira.schema.functions.KNX.HeatingCooling",
+			"iconID": 14,
+			"uid": "a0bp"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.HeatingCoolingSwitchable",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": false,
+					"name": "Current",
+					"uid": "a0bt"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Set-Point",
+					"uid": "a0bu"
+				}
+			],
+			"displayName": "Heizkörper",
+			"functionType": "de.gira.schema.functions.KNX.HeatingCooling",
+			"iconID": 14,
+			"uid": "a0bs"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.HeatingCoolingSwitchable",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": false,
+					"name": "Current",
+					"uid": "a0bw"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Set-Point",
+					"uid": "a0bx"
+				}
+			],
+			"displayName": "Heizung",
+			"functionType": "de.gira.schema.functions.KNX.HeatingCooling",
+			"iconID": 14,
+			"uid": "a0bv"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0bz"
+				}
+			],
+			"displayName": "Decke",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a0by"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0c1"
+				}
+			],
+			"displayName": "Fenster",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a0c0"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0c3"
+				}
+			],
+			"displayName": "Spiegel",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a0c2"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a056"
+				}
+			],
+			"displayName": "Deckenlicht",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a055"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a058"
+				}
+			],
+			"displayName": "Durchgangsbeleuchtung",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a057"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.HeatingCoolingSwitchable",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Current",
+					"uid": "a05a"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Set-Point",
+					"uid": "a05b"
+				}
+			],
+			"displayName": "Heizkreis",
+			"functionType": "de.gira.schema.functions.KNX.HeatingCooling",
+			"iconID": 14,
+			"uid": "a059"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a05d"
+				}
+			],
+			"displayName": "Deckenlicht",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a05c"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a05f"
+				}
+			],
+			"displayName": "Durchgang",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a05e"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a05h"
+				}
+			],
+			"displayName": "Licht Durchgang",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a05g"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a05j"
+				}
+			],
+			"displayName": "Licht vorne",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a05i"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a05l"
+				}
+			],
+			"displayName": "Licht hinten",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a05k"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.HeatingCoolingSwitchable",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Current",
+					"uid": "a05n"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Set-Point",
+					"uid": "a05o"
+				}
+			],
+			"displayName": "Heizkreis",
+			"functionType": "de.gira.schema.functions.KNX.HeatingCooling",
+			"iconID": 14,
+			"uid": "a05m"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a05q"
+				}
+			],
+			"displayName": "Licht",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a05p"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a070"
+				}
+			],
+			"displayName": "Licht",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a05v"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a03y"
+				}
+			],
+			"displayName": "Wandleuchte",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a03x"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.Dimmer",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a04y"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Shift",
+					"uid": "a04z"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Brightness",
+					"uid": "a050"
+				}
+			],
+			"displayName": "Deckenlicht",
+			"functionType": "de.gira.schema.functions.KNX.Light",
+			"iconID": 1,
+			"uid": "a04x"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a06z"
+				}
+			],
+			"displayName": "Steckdose",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 15,
+			"uid": "a06y"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a040"
+				}
+			],
+			"displayName": "Laubengang",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 15,
+			"uid": "a03z"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.Dimmer",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a04u"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Shift",
+					"uid": "a04v"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Brightness",
+					"uid": "a04w"
+				}
+			],
+			"displayName": "Laubengang",
+			"functionType": "de.gira.schema.functions.KNX.Light",
+			"iconID": 1,
+			"uid": "a04t"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.Dimmer",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a052"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Shift",
+					"uid": "a053"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Brightness",
+					"uid": "a054"
+				}
+			],
+			"displayName": "Eingang",
+			"functionType": "de.gira.schema.functions.KNX.Light",
+			"iconID": 1,
+			"uid": "a051"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0a9"
+				}
+			],
+			"displayName": "Treppenaufgang",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a0a8"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0ab"
+				}
+			],
+			"displayName": "Zugang oben",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a0aa"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.Dimmer",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0ad"
+				},
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Shift",
+					"uid": "a0ae"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Brightness",
+					"uid": "a0af"
+				}
+			],
+			"displayName": "LED Band Teich",
+			"functionType": "de.gira.schema.functions.KNX.Light",
+			"iconID": 1,
+			"uid": "a0ac"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.Dimmer",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0ah"
+				},
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Shift",
+					"uid": "a0ai"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Brightness",
+					"uid": "a0aj"
+				}
+			],
+			"displayName": "Strahler Wasserfall",
+			"functionType": "de.gira.schema.functions.KNX.Light",
+			"iconID": 1,
+			"uid": "a0ag"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0ak"
+				}
+			],
+			"displayName": "Steckdose Ost",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 15,
+			"uid": "a06w"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0at"
+				}
+			],
+			"displayName": "Teich",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 15,
+			"uid": "a0bb"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a05s"
+				}
+			],
+			"displayName": "Licht",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a05r"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a05u"
+				}
+			],
+			"displayName": "Steckdose",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 15,
+			"uid": "a05t"
+		},
+		{
+			"channelType": "de.gira.schema.channels.BlindWithPos",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Step-Up-Down",
+					"uid": "a073"
+				},
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Up-Down",
+					"uid": "a074"
+				}
+			],
+			"displayName": "Zentral",
+			"functionType": "de.gira.schema.functions.Covering",
+			"iconID": 7,
+			"uid": "a072"
+		},
+		{
+			"channelType": "de.gira.schema.channels.BlindWithPos",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Step-Up-Down",
+					"uid": "a0b9"
+				},
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Up-Down",
+					"uid": "a0ba"
+				}
+			],
+			"displayName": "Galerie",
+			"functionType": "de.gira.schema.functions.Covering",
+			"iconID": 7,
+			"uid": "a0bc"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.HeatingCoolingSwitchable",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": false,
+					"name": "Current",
+					"uid": "a09z"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Set-Point",
+					"uid": "a0a0"
+				}
+			],
+			"displayName": "Heizung",
+			"functionType": "de.gira.schema.functions.KNX.HeatingCooling",
+			"iconID": 14,
+			"uid": "a09y"
+		},
+		{
+			"channelType": "de.gira.schema.channels.BlindWithPos",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Step-Up-Down",
+					"uid": "a0c5"
+				},
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Up-Down",
+					"uid": "a0c6"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Position",
+					"uid": "a0c7"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Slat-Position",
+					"uid": "a0c8"
+				}
+			],
+			"displayName": "Balkon links",
+			"functionType": "de.gira.schema.functions.Covering",
+			"iconID": 7,
+			"uid": "a0c4"
+		},
+		{
+			"channelType": "de.gira.schema.channels.BlindWithPos",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Step-Up-Down",
+					"uid": "a0ca"
+				},
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Up-Down",
+					"uid": "a0cb"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Position",
+					"uid": "a0cc"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Slat-Position",
+					"uid": "a0cd"
+				}
+			],
+			"displayName": "Balkon rechts",
+			"functionType": "de.gira.schema.functions.Covering",
+			"iconID": 7,
+			"uid": "a0c9"
+		},
+		{
+			"channelType": "de.gira.schema.channels.BlindWithPos",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Step-Up-Down",
+					"uid": "a0cf"
+				},
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Up-Down",
+					"uid": "a0cg"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Position",
+					"uid": "a0ch"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Slat-Position",
+					"uid": "a0ci"
+				}
+			],
+			"displayName": "Fenster links",
+			"functionType": "de.gira.schema.functions.Covering",
+			"iconID": 7,
+			"uid": "a0ce"
+		},
+		{
+			"channelType": "de.gira.schema.channels.BlindWithPos",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Step-Up-Down",
+					"uid": "a0ck"
+				},
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Up-Down",
+					"uid": "a0cl"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Position",
+					"uid": "a0cm"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Slat-Position",
+					"uid": "a0cn"
+				}
+			],
+			"displayName": "Fenster rechts",
+			"functionType": "de.gira.schema.functions.Covering",
+			"iconID": 7,
+			"uid": "a0cj"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0cp"
+				}
+			],
+			"displayName": "Steckdose links",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 15,
+			"uid": "a0co"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0cr"
+				}
+			],
+			"displayName": "Steckdose rechts",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 15,
+			"uid": "a0cq"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0ct"
+				}
+			],
+			"displayName": "Decke",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a0cs"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0cv"
+				}
+			],
+			"displayName": "Schrank",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a0cu"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.HeatingCoolingSwitchable",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": false,
+					"name": "Current",
+					"uid": "a0a2"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Set-Point",
+					"uid": "a0a3"
+				}
+			],
+			"displayName": "Heizung",
+			"functionType": "de.gira.schema.functions.KNX.HeatingCooling",
+			"iconID": 14,
+			"uid": "a0a1"
+		},
+		{
+			"channelType": "de.gira.schema.channels.BlindWithPos",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Step-Up-Down",
+					"uid": "a0cx"
+				},
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Up-Down",
+					"uid": "a0cy"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Position",
+					"uid": "a0cz"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Slat-Position",
+					"uid": "a0d0"
+				}
+			],
+			"displayName": "Fenster",
+			"functionType": "de.gira.schema.functions.Covering",
+			"iconID": 7,
+			"uid": "a0cw"
+		},
+		{
+			"channelType": "de.gira.schema.channels.BlindWithPos",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Step-Up-Down",
+					"uid": "a0d2"
+				},
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Up-Down",
+					"uid": "a0d3"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Position",
+					"uid": "a0d4"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Slat-Position",
+					"uid": "a0d5"
+				}
+			],
+			"displayName": "Wanne",
+			"functionType": "de.gira.schema.functions.Covering",
+			"iconID": 7,
+			"uid": "a0d1"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0d7"
+				}
+			],
+			"displayName": "Decke",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a0d6"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0d9"
+				}
+			],
+			"displayName": "Kronleuchter",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a0d8"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0db"
+				}
+			],
+			"displayName": "Schamwand",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a0da"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0dd"
+				}
+			],
+			"displayName": "Waschtisch",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a0dc"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.HeatingCoolingSwitchable",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": false,
+					"name": "Current",
+					"uid": "a0a5"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Set-Point",
+					"uid": "a0a6"
+				}
+			],
+			"displayName": "Heizung",
+			"functionType": "de.gira.schema.functions.KNX.HeatingCooling",
+			"iconID": 14,
+			"uid": "a0a4"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0df"
+				}
+			],
+			"displayName": "Decke",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a0de"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0dh"
+				}
+			],
+			"displayName": "Stufe",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a0dg"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a07g"
+				}
+			],
+			"displayName": "Decke",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a07f"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a07i"
+				}
+			],
+			"displayName": "Stufe",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a07h"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a07k"
+				}
+			],
+			"displayName": "Wand",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a07j"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.Dimmer",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a07e"
+				},
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Shift",
+					"uid": "a0dj"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Brightness",
+					"uid": "a0dk"
+				}
+			],
+			"displayName": "LED Band",
+			"functionType": "de.gira.schema.functions.KNX.Light",
+			"iconID": 1,
+			"uid": "a0di"
+		},
+		{
+			"channelType": "de.gira.schema.channels.BlindWithPos",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Step-Up-Down",
+					"uid": "a0dm"
+				},
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Up-Down",
+					"uid": "a0dn"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Position",
+					"uid": "a0do"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Slat-Position",
+					"uid": "a0dp"
+				}
+			],
+			"displayName": "Fenster",
+			"functionType": "de.gira.schema.functions.Covering",
+			"iconID": 7,
+			"uid": "a0dl"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.HeatingCoolingSwitchable",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Current",
+					"uid": "a002"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Set-Point",
+					"uid": "a003"
+				}
+			],
+			"displayName": "Heizung",
+			"functionType": "de.gira.schema.functions.KNX.HeatingCooling",
+			"iconID": 14,
+			"uid": "a0dq"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0a9"
+				}
+			],
+			"displayName": "Außen",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a07d"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a087"
+				}
+			],
+			"displayName": "Treppe",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a0dr"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.Dimmer",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a07m"
+				},
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Shift",
+					"uid": "a07n"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Brightness",
+					"uid": "a07o"
+				}
+			],
+			"displayName": "Tisch",
+			"functionType": "de.gira.schema.functions.KNX.Light",
+			"iconID": 1,
+			"uid": "a07l"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.Dimmer",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a07q"
+				},
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Shift",
+					"uid": "a07r"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Brightness",
+					"uid": "a07s"
+				}
+			],
+			"displayName": "LED Band",
+			"functionType": "de.gira.schema.functions.KNX.Light",
+			"iconID": 1,
+			"uid": "a07p"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.HeatingCoolingSwitchable",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": false,
+					"name": "Current",
+					"uid": "a07u"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Set-Point",
+					"uid": "a09p"
+				}
+			],
+			"displayName": "Heizung",
+			"functionType": "de.gira.schema.functions.KNX.HeatingCooling",
+			"iconID": 14,
+			"uid": "a07t"
+		},
+		{
+			"channelType": "de.gira.schema.channels.BlindWithPos",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Step-Up-Down",
+					"uid": "a0dt"
+				},
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Up-Down",
+					"uid": "a0du"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Position",
+					"uid": "a0dv"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Slat-Position",
+					"uid": "a0dw"
+				}
+			],
+			"displayName": "Fenster 1",
+			"functionType": "de.gira.schema.functions.Covering",
+			"iconID": 7,
+			"uid": "a0ds"
+		},
+		{
+			"channelType": "de.gira.schema.channels.BlindWithPos",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Step-Up-Down",
+					"uid": "a0dy"
+				},
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Up-Down",
+					"uid": "a0dz"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Position",
+					"uid": "a0e0"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Slat-Position",
+					"uid": "a0e1"
+				}
+			],
+			"displayName": "Fenster 2",
+			"functionType": "de.gira.schema.functions.Covering",
+			"iconID": 7,
+			"uid": "a0dx"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a07x"
+				}
+			],
+			"displayName": "Insel",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a07w"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a07z"
+				}
+			],
+			"displayName": "Arbeitsfläche",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a07y"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a081"
+				}
+			],
+			"displayName": "Pendel",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a080"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a083"
+				}
+			],
+			"displayName": "Kühlschrank",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a082"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a085"
+				}
+			],
+			"displayName": "Flur",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a084"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0e2"
+				}
+			],
+			"displayName": "Durchgang",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a086"
+		},
+		{
+			"channelType": "de.gira.schema.channels.BlindWithPos",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Step-Up-Down",
+					"uid": "a0e4"
+				},
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Up-Down",
+					"uid": "a0e5"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Position",
+					"uid": "a0e6"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Slat-Position",
+					"uid": "a0e7"
+				}
+			],
+			"displayName": "Tür",
+			"functionType": "de.gira.schema.functions.Covering",
+			"iconID": 7,
+			"uid": "a0e3"
+		},
+		{
+			"channelType": "de.gira.schema.channels.BlindWithPos",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Step-Up-Down",
+					"uid": "a0ff"
+				},
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Up-Down",
+					"uid": "a0fg"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Position",
+					"uid": "a0fh"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Slat-Position",
+					"uid": "a0fi"
+				}
+			],
+			"displayName": "Küchenfenster",
+			"functionType": "de.gira.schema.functions.Covering",
+			"iconID": 7,
+			"uid": "a0gl"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.Dimmer",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a089"
+				},
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Shift",
+					"uid": "a08a"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Brightness",
+					"uid": "a08b"
+				}
+			],
+			"displayName": "Leuchte 1",
+			"functionType": "de.gira.schema.functions.KNX.Light",
+			"iconID": 1,
+			"uid": "a088"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.Dimmer",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a08d"
+				},
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Shift",
+					"uid": "a08e"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Brightness",
+					"uid": "a08f"
+				}
+			],
+			"displayName": "Leuchte 02",
+			"functionType": "de.gira.schema.functions.KNX.Light",
+			"iconID": 1,
+			"uid": "a08c"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.Dimmer",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a08h"
+				},
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Shift",
+					"uid": "a08i"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Brightness",
+					"uid": "a08j"
+				}
+			],
+			"displayName": "Leuchte 03",
+			"functionType": "de.gira.schema.functions.KNX.Light",
+			"iconID": 1,
+			"uid": "a08g"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.Dimmer",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a08l"
+				},
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Shift",
+					"uid": "a08m"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Brightness",
+					"uid": "a08n"
+				}
+			],
+			"displayName": "Leuchte 04",
+			"functionType": "de.gira.schema.functions.KNX.Light",
+			"iconID": 1,
+			"uid": "a08k"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.Dimmer",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a08p"
+				},
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Shift",
+					"uid": "a08q"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Brightness",
+					"uid": "a08r"
+				}
+			],
+			"displayName": "Leuchte 05",
+			"functionType": "de.gira.schema.functions.KNX.Light",
+			"iconID": 1,
+			"uid": "a08o"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.Dimmer",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a08t"
+				},
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Shift",
+					"uid": "a08u"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Brightness",
+					"uid": "a08v"
+				}
+			],
+			"displayName": "Leuchte 06",
+			"functionType": "de.gira.schema.functions.KNX.Light",
+			"iconID": 1,
+			"uid": "a08s"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.HeatingCoolingSwitchable",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": false,
+					"name": "Current",
+					"uid": "a08x"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Set-Point",
+					"uid": "a09q"
+				}
+			],
+			"displayName": "Heizung",
+			"functionType": "de.gira.schema.functions.KNX.HeatingCooling",
+			"iconID": 14,
+			"uid": "a08w"
+		},
+		{
+			"channelType": "de.gira.schema.channels.BlindWithPos",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Step-Up-Down",
+					"uid": "a0e9"
+				},
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Up-Down",
+					"uid": "a0ea"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Position",
+					"uid": "a0eb"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Slat-Position",
+					"uid": "a0ec"
+				}
+			],
+			"displayName": "Fenster 1",
+			"functionType": "de.gira.schema.functions.Covering",
+			"iconID": 7,
+			"uid": "a0e8"
+		},
+		{
+			"channelType": "de.gira.schema.channels.BlindWithPos",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Step-Up-Down",
+					"uid": "a0ee"
+				},
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Up-Down",
+					"uid": "a0ef"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Position",
+					"uid": "a0eg"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Slat-Position",
+					"uid": "a0eh"
+				}
+			],
+			"displayName": "Fenster 2",
+			"functionType": "de.gira.schema.functions.Covering",
+			"iconID": 7,
+			"uid": "a0ed"
+		},
+		{
+			"channelType": "de.gira.schema.channels.BlindWithPos",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Step-Up-Down",
+					"uid": "a0ej"
+				},
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Up-Down",
+					"uid": "a0ek"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Position",
+					"uid": "a0el"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Slat-Position",
+					"uid": "a0em"
+				}
+			],
+			"displayName": "Panorama",
+			"functionType": "de.gira.schema.functions.Covering",
+			"iconID": 7,
+			"uid": "a0ei"
+		},
+		{
+			"channelType": "de.gira.schema.channels.BlindWithPos",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Step-Up-Down",
+					"uid": "a0eo"
+				},
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Up-Down",
+					"uid": "a0ep"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Position",
+					"uid": "a0eq"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Slat-Position",
+					"uid": "a0er"
+				}
+			],
+			"displayName": "Tür",
+			"functionType": "de.gira.schema.functions.Covering",
+			"iconID": 7,
+			"uid": "a0en"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.Dimmer",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a090"
+				},
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Shift",
+					"uid": "a091"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Brightness",
+					"uid": "a092"
+				}
+			],
+			"displayName": "LED Band",
+			"functionType": "de.gira.schema.functions.KNX.Light",
+			"iconID": 1,
+			"uid": "a08z"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a094"
+				}
+			],
+			"displayName": "Wand",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a093"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.Dimmer",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a096"
+				},
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Shift",
+					"uid": "a0et"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Brightness",
+					"uid": "a0eu"
+				}
+			],
+			"displayName": "Kronleuchter",
+			"functionType": "de.gira.schema.functions.KNX.Light",
+			"iconID": 1,
+			"uid": "a0es"
+		},
+		{
+			"channelType": "de.gira.schema.channels.BlindWithPos",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Step-Up-Down",
+					"uid": "a0ew"
+				},
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Up-Down",
+					"uid": "a0ex"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Position",
+					"uid": "a0ey"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Slat-Position",
+					"uid": "a0ez"
+				}
+			],
+			"displayName": "Tür",
+			"functionType": "de.gira.schema.functions.Covering",
+			"iconID": 7,
+			"uid": "a0ev"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.Dimmer",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a098"
+				},
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Shift",
+					"uid": "a099"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Brightness",
+					"uid": "a09a"
+				}
+			],
+			"displayName": "LED Band",
+			"functionType": "de.gira.schema.functions.KNX.Light",
+			"iconID": 1,
+			"uid": "a097"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a09c"
+				}
+			],
+			"displayName": "Schalter",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 15,
+			"uid": "a09b"
+		},
+		{
+			"channelType": "de.gira.schema.channels.BlindWithPos",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Step-Up-Down",
+					"uid": "a0f1"
+				},
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Up-Down",
+					"uid": "a0f2"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Position",
+					"uid": "a0f3"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Slat-Position",
+					"uid": "a0f4"
+				}
+			],
+			"displayName": "Fenster 1",
+			"functionType": "de.gira.schema.functions.Covering",
+			"iconID": 7,
+			"uid": "a0f0"
+		},
+		{
+			"channelType": "de.gira.schema.channels.BlindWithPos",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Step-Up-Down",
+					"uid": "a0f6"
+				},
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Up-Down",
+					"uid": "a0f7"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Position",
+					"uid": "a0f8"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Slat-Position",
+					"uid": "a0f9"
+				}
+			],
+			"displayName": "Fenster 2",
+			"functionType": "de.gira.schema.functions.Covering",
+			"iconID": 7,
+			"uid": "a0f5"
+		},
+		{
+			"channelType": "de.gira.schema.channels.BlindWithPos",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Step-Up-Down",
+					"uid": "a0fb"
+				},
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Up-Down",
+					"uid": "a0fc"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Position",
+					"uid": "a0f8"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Slat-Position",
+					"uid": "a0fd"
+				}
+			],
+			"displayName": "Tür",
+			"functionType": "de.gira.schema.functions.Covering",
+			"iconID": 7,
+			"uid": "a0fa"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.HeatingCoolingSwitchable",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": false,
+					"name": "Current",
+					"uid": "a09s"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Set-Point",
+					"uid": "a09p"
+				}
+			],
+			"displayName": "Heizung",
+			"functionType": "de.gira.schema.functions.KNX.HeatingCooling",
+			"iconID": 14,
+			"uid": "a09r"
+		},
+		{
+			"channelType": "de.gira.schema.channels.BlindWithPos",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Step-Up-Down",
+					"uid": "a0ff"
+				},
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Up-Down",
+					"uid": "a0fg"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Position",
+					"uid": "a0fh"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Slat-Position",
+					"uid": "a0fi"
+				}
+			],
+			"displayName": "Fenster",
+			"functionType": "de.gira.schema.functions.Covering",
+			"iconID": 7,
+			"uid": "a0fe"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0fk"
+				}
+			],
+			"displayName": "Decke",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a0fj"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0fm"
+				}
+			],
+			"displayName": "Schrank",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a0fl"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0fo"
+				}
+			],
+			"displayName": "Decke",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a0fn"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0fp"
+				}
+			],
+			"displayName": "Leuchte",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a095"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.HeatingCoolingSwitchable",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": false,
+					"name": "Current",
+					"uid": "a09e"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Set-Point",
+					"uid": "a09u"
+				}
+			],
+			"displayName": "Heizung",
+			"functionType": "de.gira.schema.functions.KNX.HeatingCooling",
+			"iconID": 14,
+			"uid": "a09d"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0fr"
+				}
+			],
+			"displayName": "Decke 1",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a0fq"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0ft"
+				}
+			],
+			"displayName": "Decke 2",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a0fs"
+		},
+		{
+			"channelType": "de.gira.schema.channels.BlindWithPos",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Step-Up-Down",
+					"uid": "a0fv"
+				},
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Up-Down",
+					"uid": "a0fw"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Position",
+					"uid": "a0fx"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Slat-Position",
+					"uid": "a0fy"
+				}
+			],
+			"displayName": "Fenster",
+			"functionType": "de.gira.schema.functions.Covering",
+			"iconID": 7,
+			"uid": "a0fu"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.HeatingCoolingSwitchable",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": false,
+					"name": "Current",
+					"uid": "a09h"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Set-Point",
+					"uid": "a09v"
+				}
+			],
+			"displayName": "Heizung",
+			"functionType": "de.gira.schema.functions.KNX.HeatingCooling",
+			"iconID": 14,
+			"uid": "a09g"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0g0"
+				}
+			],
+			"displayName": "Decke 1",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a0fz"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0g2"
+				}
+			],
+			"displayName": "Decke 2",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a0g1"
+		},
+		{
+			"channelType": "de.gira.schema.channels.BlindWithPos",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Step-Up-Down",
+					"uid": "a0g4"
+				},
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Up-Down",
+					"uid": "a0g5"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Position",
+					"uid": "a0g6"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Slat-Position",
+					"uid": "a0g7"
+				}
+			],
+			"displayName": "Fenster",
+			"functionType": "de.gira.schema.functions.Covering",
+			"iconID": 7,
+			"uid": "a0g3"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.HeatingCoolingSwitchable",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": false,
+					"name": "Current",
+					"uid": "a09k"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Set-Point",
+					"uid": "a09w"
+				}
+			],
+			"displayName": "Heizung",
+			"functionType": "de.gira.schema.functions.KNX.HeatingCooling",
+			"iconID": 14,
+			"uid": "a09j"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0g9"
+				}
+			],
+			"displayName": "Decke",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a0g8"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0gb"
+				}
+			],
+			"displayName": "Spiegel",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a0ga"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0gd"
+				}
+			],
+			"displayName": "Decke",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a0gc"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0gf"
+				}
+			],
+			"displayName": "Hobby",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a0ge"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0gh"
+				}
+			],
+			"displayName": "Stufe",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a0gg"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0gj"
+				}
+			],
+			"displayName": "Technik",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a0gi"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0am"
+				}
+			],
+			"displayName": "Eingang",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a0al"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0a9"
+				}
+			],
+			"displayName": "Treppenaufgang",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a0an"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0ar"
+				}
+			],
+			"displayName": "Zugang oben",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a0aq"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.Dimmer",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0ad"
+				},
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Shift",
+					"uid": "a0ae"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Brightness",
+					"uid": "a0af"
+				}
+			],
+			"displayName": "LED Band Teich",
+			"functionType": "de.gira.schema.functions.KNX.Light",
+			"iconID": 1,
+			"uid": "a0bd"
+		},
+		{
+			"channelType": "de.gira.schema.channels.KNX.Dimmer",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0ah"
+				},
+				{
+					"canEvent": true,
+					"canRead": false,
+					"canWrite": true,
+					"name": "Shift",
+					"uid": "a0ai"
+				},
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Brightness",
+					"uid": "a0aj"
+				}
+			],
+			"displayName": "Strahler Wasserfall",
+			"functionType": "de.gira.schema.functions.KNX.Light",
+			"iconID": 1,
+			"uid": "a0be"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0at"
+				}
+			],
+			"displayName": "Teich",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 15,
+			"uid": "a0as"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0av"
+				}
+			],
+			"displayName": "Wand",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a0au"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0ax"
+				}
+			],
+			"displayName": "Steckdose",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 15,
+			"uid": "a0aw"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0az"
+				}
+			],
+			"displayName": "LED Band",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a0ay"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0b1"
+				}
+			],
+			"displayName": "Steckdose",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 15,
+			"uid": "a0b0"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0b3"
+				}
+			],
+			"displayName": "Decke",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 1,
+			"uid": "a0b2"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0gn"
+				}
+			],
+			"displayName": "Ventil 1 - Weg Rechts",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 46,
+			"uid": "a0gm"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0gp"
+				}
+			],
+			"displayName": "Ventil 2 - Kaminzimmer",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 46,
+			"uid": "a0go"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0gr"
+				}
+			],
+			"displayName": "Ventil 3",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 46,
+			"uid": "a0gq"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Switch",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "OnOff",
+					"uid": "a0gt"
+				}
+			],
+			"displayName": "Ventil 4",
+			"functionType": "de.gira.schema.functions.Switch",
+			"iconID": 46,
+			"uid": "a0gs"
+		},
+		{
+			"channelType": "de.gira.schema.channels.Trigger",
+			"dataPoints": [
+				{
+					"canEvent": true,
+					"canRead": true,
+					"canWrite": true,
+					"name": "Trigger",
+					"uid": "a0b5"
+				}
+			],
+			"displayName": "Tor Zugang oben",
+			"functionType": "de.gira.schema.functions.Trigger",
+			"iconID": 10,
+			"uid": "a0b4"
+		}
+	],
+	"locations": [
+		{
+			"displayName": "Neubau",
+			"functions": [
+				"a072",
+				"a0bc"
+			],
+			"iconID": 63,
+			"locationType": "Building",
+			"locations": [
+				{
+					"displayName": "DG",
+					"iconID": 138,
+					"locationType": "Floor",
+					"locations": [
+						{
+							"displayName": "Galerie",
+							"functions": [
+								"a02t",
+								"a03b",
+								"a0b8",
+								"a047",
+								"a062",
+								"a067",
+								"a06c",
+								"a031",
+								"a02v",
+								"a00l"
+							],
+							"iconID": 139,
+							"locationType": "Room"
+						},
+						{
+							"displayName": "Balkon",
+							"functions": [
+								"a06l"
+							],
+							"iconID": 26,
+							"locationType": "Room"
+						}
+					]
+				},
+				{
+					"displayName": "EG",
+					"iconID": 136,
+					"locationType": "Floor",
+					"locations": [
+						{
+							"displayName": "Flur EG",
+							"functions": [
+								"a008",
+								"a004",
+								"a001"
+							],
+							"iconID": 18,
+							"locationType": "Room"
+						},
+						{
+							"displayName": "WC",
+							"functions": [
+								"a00c"
+							],
+							"iconID": 50,
+							"locationType": "Room"
+						},
+						{
+							"displayName": "Bad",
+							"functions": [
+								"a00e",
+								"a00g",
+								"a00i"
+							],
+							"iconID": 23,
+							"locationType": "Room"
+						},
+						{
+							"displayName": "Büro 1",
+							"functions": [
+								"a00r",
+								"a00w",
+								"a00t"
+							],
+							"iconID": 29,
+							"locationType": "Room"
+						},
+						{
+							"displayName": "Büro 2",
+							"functions": [
+								"a012",
+								"a017",
+								"a01d",
+								"a014"
+							],
+							"iconID": 29,
+							"locationType": "Room"
+						},
+						{
+							"displayName": "HWR",
+							"functions": [
+								"a01j",
+								"a01o",
+								"a01l"
+							],
+							"iconID": 44,
+							"locationType": "Room"
+						},
+						{
+							"displayName": "Küche",
+							"functions": [
+								"a029",
+								"a02d",
+								"a02h",
+								"a06p",
+								"a06q",
+								"a06s",
+								"a01x",
+								"a023",
+								"a01u"
+							],
+							"iconID": 17,
+							"locationType": "Room"
+						},
+						{
+							"displayName": "Wohnen",
+							"functions": [
+								"a03p",
+								"a078",
+								"a079",
+								"a06u",
+								"a03d",
+								"a03j"
+							],
+							"iconID": 24,
+							"locationType": "Room"
+						},
+						{
+							"displayName": "Esszimmer",
+							"functions": [
+								"a04d",
+								"a04h",
+								"a04l",
+								"a04p",
+								"a041"
+							],
+							"iconID": 16,
+							"locationType": "Room"
+						},
+						{
+							"displayName": "Schlafzimmer",
+							"functions": [
+								"a0bg",
+								"a0bk",
+								"a0bp"
+							],
+							"iconID": 30,
+							"locationType": "Room"
+						},
+						{
+							"displayName": "Elternbad",
+							"functions": [
+								"a0bs",
+								"a0bv",
+								"a0by",
+								"a0c0",
+								"a0c2"
+							],
+							"iconID": 23,
+							"locationType": "Room"
+						}
+					]
+				},
+				{
+					"displayName": "UG",
+					"iconID": 135,
+					"locationType": "Floor",
+					"locations": [
+						{
+							"displayName": "Fitnessraum",
+							"functions": [
+								"a055",
+								"a057",
+								"a059"
+							],
+							"iconID": 32,
+							"locationType": "Room"
+						},
+						{
+							"displayName": "Flur",
+							"functions": [
+								"a05c",
+								"a05e"
+							],
+							"iconID": 18,
+							"locationType": "Room"
+						},
+						{
+							"displayName": "Technikraum",
+							"functions": [
+								"a05g",
+								"a05i",
+								"a05k",
+								"a05m"
+							],
+							"iconID": 312,
+							"locationType": "Room"
+						},
+						{
+							"displayName": "Pelletlager",
+							"functions": [
+								"a05p"
+							],
+							"iconID": 139,
+							"locationType": "Room"
+						},
+						{
+							"displayName": "Keller",
+							"functions": [
+								"a05v"
+							],
+							"iconID": 114,
+							"locationType": "Room"
+						}
+					]
+				},
+				{
+					"displayName": "Außenbereich",
+					"iconID": 132,
+					"locationType": "Room",
+					"locations": [
+						{
+							"displayName": "Terrasse",
+							"functions": [
+								"a03x"
+							],
+							"iconID": 146,
+							"locationType": "Room"
+						},
+						{
+							"displayName": "Freisitz",
+							"functions": [
+								"a04x",
+								"a06y"
+							],
+							"iconID": 146,
+							"locationType": "Room"
+						},
+						{
+							"displayName": "Laubengang",
+							"functions": [
+								"a03z",
+								"a04t"
+							],
+							"iconID": 26,
+							"locationType": "Room"
+						},
+						{
+							"displayName": "Eingang",
+							"functions": [
+								"a051",
+								"a0a8"
+							],
+							"iconID": 304,
+							"locationType": "Room"
+						},
+						{
+							"displayName": "Garten",
+							"functions": [
+								"a0aa",
+								"a0ac",
+								"a0ag",
+								"a06w",
+								"a0bb"
+							],
+							"iconID": 37,
+							"locationType": "Room"
+						},
+						{
+							"displayName": "Keller Eingang",
+							"functions": [
+								"a05r",
+								"a05t"
+							],
+							"iconID": 144,
+							"locationType": "Room"
+						}
+					]
+				}
+			]
+		},
+		{
+			"displayName": "Bestand",
+			"iconID": 63,
+			"locationType": "Building",
+			"locations": [
+				{
+					"displayName": "DG",
+					"iconID": 138,
+					"locationType": "Floor",
+					"locations": [
+						{
+							"displayName": "Schlafzimmer",
+							"functions": [
+								"a09y",
+								"a0c4",
+								"a0c9",
+								"a0ce",
+								"a0cj",
+								"a0co",
+								"a0cq",
+								"a0cs",
+								"a0cu"
+							],
+							"iconID": 30,
+							"locationType": "Room"
+						},
+						{
+							"displayName": "Badezimmer",
+							"functions": [
+								"a0a1",
+								"a0cw",
+								"a0d1",
+								"a0d6",
+								"a0d8",
+								"a0da",
+								"a0dc"
+							],
+							"iconID": 23,
+							"locationType": "Room"
+						},
+						{
+							"displayName": "Flur",
+							"functions": [
+								"a0a4",
+								"a0de",
+								"a0dg"
+							],
+							"iconID": 18,
+							"locationType": "Room"
+						}
+					]
+				},
+				{
+					"displayName": "EG",
+					"iconID": 136,
+					"locationType": "Floor",
+					"locations": [
+						{
+							"displayName": "Eingangsbereich",
+							"functions": [
+								"a07f",
+								"a07h",
+								"a07j",
+								"a0di",
+								"a0dl",
+								"a0dq",
+								"a07d",
+								"a0dr"
+							],
+							"iconID": 144,
+							"locationType": "Room"
+						},
+						{
+							"displayName": "Esszimmer",
+							"functions": [
+								"a07l",
+								"a07p",
+								"a07t",
+								"a0ds",
+								"a0dx"
+							],
+							"iconID": 16,
+							"locationType": "Room"
+						},
+						{
+							"displayName": "Küche",
+							"functions": [
+								"a07w",
+								"a07y",
+								"a080",
+								"a082",
+								"a084",
+								"a086",
+								"a0e3",
+								"a0gl"
+							],
+							"iconID": 17,
+							"locationType": "Room"
+						},
+						{
+							"displayName": "Wohnzimmer",
+							"functions": [
+								"a088",
+								"a08c",
+								"a08g",
+								"a08k",
+								"a08o",
+								"a08s",
+								"a08w",
+								"a0e8",
+								"a0ed",
+								"a0ei",
+								"a0en"
+							],
+							"iconID": 24,
+							"locationType": "Room"
+						},
+						{
+							"displayName": "Kaminzimmer",
+							"functions": [
+								"a08z",
+								"a093",
+								"a0es",
+								"a0ev"
+							],
+							"iconID": 29,
+							"locationType": "Room"
+						},
+						{
+							"displayName": "Wintergarten",
+							"functions": [
+								"a097",
+								"a09b",
+								"a0f0",
+								"a0f5",
+								"a0fa"
+							],
+							"iconID": 26,
+							"locationType": "Room"
+						},
+						{
+							"displayName": "HWR",
+							"functions": [
+								"a09r",
+								"a0fe",
+								"a0fj",
+								"a0fl"
+							],
+							"iconID": 44,
+							"locationType": "Room"
+						},
+						{
+							"displayName": "Abstellraum",
+							"functions": [
+								"a0fn"
+							],
+							"iconID": 134,
+							"locationType": "Room"
+						},
+						{
+							"displayName": "WC",
+							"functions": [
+								"a095"
+							],
+							"iconID": 50,
+							"locationType": "Room"
+						}
+					]
+				},
+				{
+					"displayName": "UG",
+					"iconID": 135,
+					"locationType": "Floor",
+					"locations": [
+						{
+							"displayName": "Kinderzimmer links",
+							"functions": [
+								"a09d",
+								"a0fq",
+								"a0fs",
+								"a0fu"
+							],
+							"iconID": 19,
+							"locationType": "Room"
+						},
+						{
+							"displayName": "Kinderzimmer rechts",
+							"functions": [
+								"a09g",
+								"a0fz",
+								"a0g1",
+								"a0g3"
+							],
+							"iconID": 19,
+							"locationType": "Room"
+						},
+						{
+							"displayName": "Badezimmer",
+							"functions": [
+								"a09j",
+								"a0g8",
+								"a0ga"
+							],
+							"iconID": 23,
+							"locationType": "Room"
+						},
+						{
+							"displayName": "Flur",
+							"functions": [
+								"a0gc",
+								"a0ge",
+								"a0gg",
+								"a0gi"
+							],
+							"iconID": 18,
+							"locationType": "Room"
+						}
+					]
+				},
+				{
+					"displayName": "Außenbereich",
+					"iconID": 132,
+					"locationType": "Building",
+					"locations": [
+						{
+							"displayName": "Eingang",
+							"functions": [
+								"a0al",
+								"a0an"
+							],
+							"iconID": 144,
+							"locationType": "Room"
+						},
+						{
+							"displayName": "Garten",
+							"functions": [
+								"a0aq",
+								"a0bd",
+								"a0be",
+								"a0as"
+							],
+							"iconID": 37,
+							"locationType": "Room"
+						},
+						{
+							"displayName": "Terrasse",
+							"functions": [
+								"a0au",
+								"a0aw"
+							],
+							"iconID": 146,
+							"locationType": "Room"
+						},
+						{
+							"displayName": "Balkon DG",
+							"functions": [
+								"a0ay",
+								"a0b0"
+							],
+							"iconID": 26,
+							"locationType": "Room"
+						},
+						{
+							"displayName": "Balkon EG",
+							"functions": [
+								"a0b2"
+							],
+							"iconID": 26,
+							"locationType": "Room"
+						},
+						{
+							"displayName": "Bewässerung",
+							"functions": [
+								"a0gm",
+								"a0go",
+								"a0gq",
+								"a0gs"
+							],
+							"iconID": 132,
+							"locationType": "Building"
+						}
+					]
+				},
+				{
+					"displayName": "Tore",
+					"functions": [
+						"a0b4"
+					],
+					"iconID": 10,
+					"locationType": "Room"
+				}
+			]
+		}
+	],
+	"uid": "a0gw"
+}

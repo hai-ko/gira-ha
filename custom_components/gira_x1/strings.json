@@ -1,0 +1,61 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Gira X1 Setup",
+        "description": "Set up your Gira X1 device connection",
+        "data": {
+          "host": "Host",
+          "port": "Port",
+          "auth_method": "Authentication Method"
+        },
+        "data_description": {
+          "host": "IP address or hostname of your Gira X1 device",
+          "port": "Port number for the REST API (default: 80)",
+          "auth_method": "Choose how to authenticate with your Gira X1 device"
+        }
+      },
+      "auth_password": {
+        "title": "Username & Password Authentication",
+        "description": "Enter your Gira X1 credentials",
+        "data": {
+          "username": "Username",
+          "password": "Password"
+        },
+        "data_description": {
+          "username": "Your Gira X1 username",
+          "password": "Your Gira X1 password"
+        }
+      },
+      "auth_token": {
+        "title": "Token Authentication",
+        "description": "Enter your Gira X1 API token",
+        "data": {
+          "token": "API Token"
+        },
+        "data_description": {
+          "token": "Your pre-generated Gira X1 API token"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Failed to connect to the Gira X1 device. Please check the host and port.",
+      "invalid_auth": "Invalid authentication credentials or token.",
+      "unknown": "Unexpected error occurred during setup."
+    },
+    "abort": {
+      "already_configured": "Device is already configured"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Gira X1 Options",
+        "description": "Configure options for your Gira X1 integration",
+        "data": {
+          "scan_interval": "Update interval (seconds)"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,56 @@
+# Example Home Assistant configuration for Gira X1 integration
+
+# If you want to configure via YAML (optional - UI configuration is recommended)
+
+# Method 1: Username/Password Authentication
+gira_x1:
+  host: "192.168.1.100"  # IP address of your Gira X1 device
+  port: 80               # Port for REST API (default: 80)
+  auth_method: "password"
+  username: "your_username"
+  password: "your_password"
+
+# Method 2: Token Authentication (alternative to username/password)
+# gira_x1:
+#   host: "192.168.1.100"  # IP address of your Gira X1 device
+#   port: 80               # Port for REST API (default: 80)
+#   auth_method: "token"
+#   token: "your_api_token_here"
+
+# Example automation using Gira X1 entities
+automation:
+  - alias: "Turn on lights when motion detected"
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.gira_x1_motion_001
+        to: 'on'
+    action:
+      - service: light.turn_on
+        target:
+          entity_id: light.gira_x1_light_002
+
+  - alias: "Close blinds at sunset"
+    trigger:
+      - platform: sun
+        event: sunset
+    action:
+      - service: cover.close_cover
+        target:
+          entity_id: cover.gira_x1_cover_003
+
+# Example script using custom services
+script:
+  set_custom_value:
+    alias: "Set Custom Value"
+    sequence:
+      - service: gira_x1.set_raw_value
+        data:
+          function_id: "123"
+          value: 75
+
+  refresh_all_devices:
+    alias: "Refresh All Devices"
+    sequence:
+      - service: gira_x1.refresh_device
+        data:
+          device_id: "all"
