@@ -18,8 +18,8 @@ from .const import (
     DOMAIN, 
     UPDATE_INTERVAL_SECONDS,
     CALLBACK_UPDATE_INTERVAL_SECONDS,
-    CALLBACK_VALUE_PATH,
-    CALLBACK_SERVICE_PATH,
+    WEBHOOK_VALUE_CALLBACK_PATH,
+    WEBHOOK_SERVICE_CALLBACK_PATH,
     CONF_AUTH_METHOD, 
     CONF_TOKEN, 
     AUTH_METHOD_TOKEN
@@ -220,8 +220,8 @@ class GiraX1DataUpdateCoordinator(DataUpdateCoordinator):
             self._webhook_handlers = register_webhook_handlers(self.hass, self)
             
             # Build callback URLs
-            value_callback_url = f"{external_url}{CALLBACK_VALUE_PATH}"
-            service_callback_url = f"{external_url}{CALLBACK_SERVICE_PATH}"
+            value_callback_url = f"{external_url}{WEBHOOK_VALUE_CALLBACK_PATH}"
+            service_callback_url = f"{external_url}{WEBHOOK_SERVICE_CALLBACK_PATH}"
             
             _LOGGER.info("Registering callbacks with URLs: value=%s, service=%s", 
                         value_callback_url, service_callback_url)

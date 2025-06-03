@@ -11,8 +11,8 @@ from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 
 from .const import (
-    CALLBACK_VALUE_PATH,
-    CALLBACK_SERVICE_PATH,
+    WEBHOOK_VALUE_CALLBACK_PATH,
+    WEBHOOK_SERVICE_CALLBACK_PATH,
     DOMAIN,
 )
 
@@ -22,7 +22,7 @@ _LOGGER = logging.getLogger(__name__)
 class GiraX1ValueCallbackView(HomeAssistantView):
     """Handle value change callbacks from Gira X1."""
 
-    url = CALLBACK_VALUE_PATH
+    url = WEBHOOK_VALUE_CALLBACK_PATH
     name = "api:gira_x1:values"
     requires_auth = False  # Gira X1 will authenticate via token
 
@@ -95,7 +95,7 @@ class GiraX1ValueCallbackView(HomeAssistantView):
 class GiraX1ServiceCallbackView(HomeAssistantView):
     """Handle service event callbacks from Gira X1."""
 
-    url = CALLBACK_SERVICE_PATH
+    url = WEBHOOK_SERVICE_CALLBACK_PATH
     name = "api:gira_x1:service"
     requires_auth = False  # Gira X1 will authenticate via token
 
