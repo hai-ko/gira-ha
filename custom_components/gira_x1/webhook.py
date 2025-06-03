@@ -30,11 +30,20 @@ class GiraX1ValueCallbackView(HomeAssistantView):
         """Initialize the value callback view."""
         self.coordinator = coordinator
 
+    async def get(self, request: web.Request) -> web.Response:
+        """Handle GET requests for value callback endpoint (for testing)."""
+        _LOGGER.info("Received GET request on value callback endpoint - responding with 200 OK")
+        return web.Response(status=200, text="Gira X1 Value Callback Endpoint")
+
     async def post(self, request: web.Request) -> web.Response:
         """Process value change events from Gira X1."""
         try:
+            # Log request details for debugging
+            content_type = request.headers.get('content-type', 'unknown')
+            _LOGGER.debug("Value callback request - Content-Type: %s, Method: %s", content_type, request.method)
+            
             data = await request.json()
-            _LOGGER.debug("Received value callback: %s", data)
+            _LOGGER.debug("Received value callback data: %s", data)
             
             # Validate token matches our client (if token is available)
             token = data.get("token")
@@ -42,17 +51,30 @@ class GiraX1ValueCallbackView(HomeAssistantView):
             
             # For test events, be more lenient with token validation
             events = data.get("events", [])
-            is_test_event = len(events) == 0  # Test events often have empty event list
+            
+            # Multiple ways to detect test events based on Gira X1 behavior
+            is_test_event = (
+                len(events) == 0 or  # Empty event list
+                any(str(event.get("event", "")).lower() == "test" for event in events) or  # Explicit test event
+                data.get("test", False) or  # Test flag in data
+                (len(events) == 1 and not events[0].get("event"))  # Single empty event (test pattern)
+            )
+            
+            _LOGGER.debug("Value callback analysis - Events: %d, Is test: %s, Token present: %s", 
+                         len(events), is_test_event, bool(token))
             
             if not is_test_event and (not token or not client_token or token != client_token):
                 _LOGGER.warning("Invalid token in value callback: %s (expected: %s)", token, client_token)
                 return web.Response(status=401, text="Invalid token")
             elif is_test_event:
-                _LOGGER.info("Received test callback event, responding with 200 OK")
+                _LOGGER.info("Received test value callback event, responding with 200 OK")
+                _LOGGER.debug("Test event data: %s", data)
             
-            # Process value events
-            if events:
+            # Process value events (skip if it's a test event)
+            if events and not is_test_event:
                 await self._process_value_events(events)
+            elif is_test_event:
+                _LOGGER.debug("Skipping event processing for test callback")
             
             # Log any failures
             failures = data.get("failures", 0)
@@ -61,8 +83,8 @@ class GiraX1ValueCallbackView(HomeAssistantView):
             
             return web.Response(status=200, text="OK")
             
-        except json.JSONDecodeError:
-            _LOGGER.error("Invalid JSON in value callback")
+        except json.JSONDecodeError as err:
+            _LOGGER.error("Invalid JSON in value callback: %s", err)
             return web.Response(status=400, text="Invalid JSON")
         except Exception as err:
             _LOGGER.error("Error processing value callback: %s", err, exc_info=True)
@@ -110,11 +132,20 @@ class GiraX1ServiceCallbackView(HomeAssistantView):
         """Initialize the service callback view."""
         self.coordinator = coordinator
 
+    async def get(self, request: web.Request) -> web.Response:
+        """Handle GET requests for service callback endpoint (for testing)."""
+        _LOGGER.info("Received GET request on service callback endpoint - responding with 200 OK")
+        return web.Response(status=200, text="Gira X1 Service Callback Endpoint")
+
     async def post(self, request: web.Request) -> web.Response:
         """Process service events from Gira X1."""
         try:
+            # Log request details for debugging
+            content_type = request.headers.get('content-type', 'unknown')
+            _LOGGER.debug("Service callback request - Content-Type: %s, Method: %s", content_type, request.method)
+            
             data = await request.json()
-            _LOGGER.debug("Received service callback: %s", data)
+            _LOGGER.info("Received service callback data: %s", data)
             
             # Validate token matches our client (if token is available)
             token = data.get("token")
@@ -122,27 +153,41 @@ class GiraX1ServiceCallbackView(HomeAssistantView):
             
             # For test events, be more lenient with token validation
             events = data.get("events", [])
-            is_test_event = any(event.get("event") == "test" for event in events)
+            
+            # Multiple ways to detect test events based on Gira X1 behavior
+            is_test_event = (
+                len(events) == 0 or  # Empty event list (similar to value callback)
+                any(event.get("event") == "test" for event in events) or  # Explicit test event
+                data.get("test", False) or  # Test flag in data
+                "test" in str(data).lower()  # Any mention of test in the payload
+            )
+            
+            _LOGGER.info("Service callback analysis - Events: %d, Is test: %s, Token present: %s", 
+                        len(events), is_test_event, bool(token))
             
             if not is_test_event and (not token or not client_token or token != client_token):
                 _LOGGER.warning("Invalid token in service callback: %s (expected: %s)", token, client_token)
                 return web.Response(status=401, text="Invalid token")
             elif is_test_event:
-                _LOGGER.info("Received test callback event, responding with 200 OK")
+                _LOGGER.info("Received test service callback event, responding with 200 OK")
+                _LOGGER.debug("Test event data: %s", data)
             
-            # Process service events
-            if events:
+            # Process service events (skip if it's a test event)
+            if events and not is_test_event:
                 await self._process_service_events(events)
+            elif is_test_event:
+                _LOGGER.debug("Skipping event processing for test callback")
             
             # Log any failures
             failures = data.get("failures", 0)
             if failures > 0:
                 _LOGGER.warning("Gira X1 reported %d failed callback attempts", failures)
             
+            _LOGGER.info("Service callback processed successfully, returning 200 OK")
             return web.Response(status=200, text="OK")
             
-        except json.JSONDecodeError:
-            _LOGGER.error("Invalid JSON in service callback")
+        except json.JSONDecodeError as err:
+            _LOGGER.error("Invalid JSON in service callback: %s", err)
             return web.Response(status=400, text="Invalid JSON")
         except Exception as err:
             _LOGGER.error("Error processing service callback: %s", err, exc_info=True)
