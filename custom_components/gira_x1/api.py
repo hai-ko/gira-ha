@@ -17,6 +17,7 @@ from .const import (
     API_UICONFIG,
     API_UICONFIG_UID,
     API_VALUES,
+    API_CALLBACKS_PATH,
     REQUEST_TIMEOUT,
     STATUS_OK,
     STATUS_UNAUTHORIZED,
@@ -431,4 +432,63 @@ class GiraX1Client:
             await self.authenticate()
             return True
         except (GiraX1ApiError, GiraX1AuthError):
+            return False
+
+    async def register_callbacks(
+        self, 
+        value_callback_url: Optional[str] = None,
+        service_callback_url: Optional[str] = None,
+        test_callbacks: bool = True
+    ) -> bool:
+        """Register callback URLs with the Gira X1 device.
+        
+        Args:
+            value_callback_url: URL for value change callbacks
+            service_callback_url: URL for service event callbacks  
+            test_callbacks: Whether to test callbacks during registration
+            
+        Returns:
+            True if registration successful, False otherwise
+        """
+        if not self._authenticated or not self._token:
+            await self.register_client()
+            
+        callback_data = {}
+        if value_callback_url:
+            callback_data["valueCallback"] = value_callback_url
+        if service_callback_url:
+            callback_data["serviceCallback"] = service_callback_url
+        if test_callbacks:
+            callback_data["testCallbacks"] = test_callbacks
+            
+        if not callback_data:
+            _LOGGER.warning("No callback URLs provided")
+            return False
+            
+        try:
+            endpoint = f"{API_CLIENTS}/{self._token}{API_CALLBACKS_PATH}"
+            response = await self._make_request_with_retry("POST", endpoint, callback_data)
+            _LOGGER.info("Successfully registered callbacks with Gira X1")
+            return True
+        except GiraX1ApiError as err:
+            _LOGGER.error("Failed to register callbacks: %s", err)
+            return False
+
+    async def unregister_callbacks(self) -> bool:
+        """Unregister callbacks from the Gira X1 device.
+        
+        Returns:
+            True if unregistration successful, False otherwise
+        """
+        if not self._authenticated or not self._token:
+            _LOGGER.warning("Not authenticated, cannot unregister callbacks")
+            return False
+            
+        try:
+            endpoint = f"{API_CLIENTS}/{self._token}{API_CALLBACKS_PATH}"
+            await self._make_request_with_retry("DELETE", endpoint)
+            _LOGGER.info("Successfully unregistered callbacks from Gira X1")
+            return True
+        except GiraX1ApiError as err:
+            _LOGGER.error("Failed to unregister callbacks: %s", err)
             return False

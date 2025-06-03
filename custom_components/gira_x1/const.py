@@ -29,6 +29,7 @@ API_UICONFIG: Final = f"{API_BASE_PATH}/uiconfig"
 API_UICONFIG_UID: Final = f"{API_BASE_PATH}/uiconfig/uid"
 API_VALUES: Final = "/api/values"  # Values endpoint is unversioned and requires /{datapoint_id}
 API_LICENSES: Final = f"{API_BASE_PATH}/licenses"
+API_CALLBACKS_PATH: Final = "/callbacks"  # Appended to client endpoint
 
 # Device types
 DEVICE_TYPE_LIGHT: Final = "light"
@@ -82,7 +83,20 @@ STATUS_NOT_FOUND: Final = 404
 # Update intervals
 UPDATE_INTERVAL_SECONDS: Final = 30
 FAST_UPDATE_INTERVAL_SECONDS: Final = 5
+CALLBACK_UPDATE_INTERVAL_SECONDS: Final = 300  # 5 minutes fallback polling when using callbacks
 
 # Timeouts
 REQUEST_TIMEOUT: Final = 10
 LOGIN_TIMEOUT: Final = 30
+
+# API endpoints
+API_CALLBACKS: Final = "callbacks"
+
+# Callback configuration
+CALLBACK_WEBHOOK_ID: Final = "gira_x1_callback"
+WEBHOOK_VALUE_CALLBACK_PATH: Final = "/api/gira_x1/callback/value"
+WEBHOOK_SERVICE_CALLBACK_PATH: Final = "/api/gira_x1/callback/service"
+
+# Configuration options
+CONF_CALLBACK_URL_OVERRIDE: Final = "callback_url_override"
+CONF_CALLBACK_TOKEN: Final = "callback_token"

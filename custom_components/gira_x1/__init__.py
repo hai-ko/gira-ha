@@ -10,10 +10,21 @@ from homeassistant.const import CONF_HOST, CONF_PASSWORD, CONF_PORT, CONF_USERNA
 from homeassistant.core import HomeAssistant, ServiceCall
 from homeassistant.exceptions import ConfigEntryNotReady
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
+from homeassistant.helpers.network import get_url
 import voluptuous as vol
 
 from .api import GiraX1ApiError, GiraX1Client
-from .const import DOMAIN, UPDATE_INTERVAL_SECONDS, CONF_AUTH_METHOD, CONF_TOKEN, AUTH_METHOD_TOKEN
+from .const import (
+    DOMAIN, 
+    UPDATE_INTERVAL_SECONDS,
+    CALLBACK_UPDATE_INTERVAL_SECONDS,
+    CALLBACK_VALUE_PATH,
+    CALLBACK_SERVICE_PATH,
+    CONF_AUTH_METHOD, 
+    CONF_TOKEN, 
+    AUTH_METHOD_TOKEN
+)
+from .webhook import register_webhook_handlers, unregister_webhook_handlers
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -65,6 +76,13 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     _LOGGER.info("Fetching initial data from Gira X1...")
     await coordinator.async_config_entry_first_refresh()
     
+    # Set up callback system
+    _LOGGER.info("Setting up callback system...")
+    try:
+        await coordinator.setup_callbacks()
+    except Exception as err:
+        _LOGGER.warning("Failed to setup callbacks, falling back to polling: %s", err)
+    
     # Log initial data summary
     if coordinator.data:
         _LOGGER.info("Initial data fetch successful. Data keys: %s", list(coordinator.data.keys()))
@@ -84,6 +102,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         
         _LOGGER.info("Function types found: %s", function_types)
         _LOGGER.info("Channel types found: %s", channel_types)
+        _LOGGER.info("Callback system: %s", "Active" if coordinator.callbacks_enabled else "Disabled (using polling)")
         
         # Log a sample of the raw UI config for debugging
         if ui_config and "functions" in ui_config:
@@ -145,6 +164,9 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Unload a config entry."""
     if unload_ok := await hass.config_entries.async_unload_platforms(entry, PLATFORMS):
         coordinator = hass.data[DOMAIN][entry.entry_id]
+        
+        # Clean up callbacks
+        await coordinator.cleanup_callbacks()
         await coordinator.client.logout()
         
         # Remove services
@@ -167,18 +189,87 @@ class GiraX1DataUpdateCoordinator(DataUpdateCoordinator):
         self.functions = {}
         self.ui_config_uid = None
         self.host = client.host  # Expose host for device info
+        self.callbacks_enabled = False
+        self._webhook_handlers = None
+
+        # Use longer polling interval when callbacks are enabled
+        update_interval = timedelta(seconds=UPDATE_INTERVAL_SECONDS)
 
         super().__init__(
             hass,
             _LOGGER,
             name=DOMAIN,
-            update_interval=timedelta(seconds=UPDATE_INTERVAL_SECONDS),
+            update_interval=update_interval,
         )
+
+    async def setup_callbacks(self) -> bool:
+        """Set up callback system for real-time updates."""
+        try:
+            # Get the external URL for Home Assistant
+            try:
+                external_url = get_url(self.hass, prefer_external=True)
+            except Exception:
+                # Fallback to internal URL if external not available
+                external_url = get_url(self.hass, prefer_external=False)
+            
+            if not external_url:
+                _LOGGER.warning("No URL available for callbacks, using polling")
+                return False
+
+            # Register webhook handlers
+            self._webhook_handlers = register_webhook_handlers(self.hass, self)
+            
+            # Build callback URLs
+            value_callback_url = f"{external_url}{CALLBACK_VALUE_PATH}"
+            service_callback_url = f"{external_url}{CALLBACK_SERVICE_PATH}"
+            
+            _LOGGER.info("Registering callbacks with URLs: value=%s, service=%s", 
+                        value_callback_url, service_callback_url)
+            
+            # Register callbacks with Gira X1
+            success = await self.client.register_callbacks(
+                value_callback_url=value_callback_url,
+                service_callback_url=service_callback_url,
+                test_callbacks=True
+            )
+            
+            if success:
+                self.callbacks_enabled = True
+                # Use longer polling interval as fallback when callbacks are active
+                self.update_interval = timedelta(seconds=CALLBACK_UPDATE_INTERVAL_SECONDS)
+                _LOGGER.info("Callbacks enabled, using %d second fallback polling", 
+                           CALLBACK_UPDATE_INTERVAL_SECONDS)
+                return True
+            else:
+                _LOGGER.warning("Failed to register callbacks, using standard polling")
+                return False
+                
+        except Exception as err:
+            _LOGGER.error("Error setting up callbacks: %s", err, exc_info=True)
+            return False
+
+    async def cleanup_callbacks(self) -> None:
+        """Clean up callback system."""
+        if self.callbacks_enabled:
+            try:
+                await self.client.unregister_callbacks()
+                _LOGGER.info("Unregistered callbacks from Gira X1")
+            except Exception as err:
+                _LOGGER.warning("Error unregistering callbacks: %s", err)
+        
+        if self._webhook_handlers:
+            unregister_webhook_handlers(self.hass)
+            self._webhook_handlers = None
+        
+        self.callbacks_enabled = False
 
     async def _async_update_data(self):
         """Update data via library."""
         try:
-            _LOGGER.debug("Starting data update cycle")
+            if self.callbacks_enabled:
+                _LOGGER.debug("Starting fallback data update cycle (callbacks enabled)")
+            else:
+                _LOGGER.debug("Starting data update cycle (polling mode)")
             
             # Check if UI config has changed
             current_uid = await self.client.get_ui_config_uid()
@@ -222,11 +313,26 @@ class GiraX1DataUpdateCoordinator(DataUpdateCoordinator):
                                     func.get("channelType", "Unknown"))
                 else:
                     _LOGGER.warning("No functions found in UI config!")
+                    
+                # Re-register callbacks if config changed (callbacks might have been lost)
+                if self.callbacks_enabled:
+                    _LOGGER.info("Re-registering callbacks after config change")
+                    try:
+                        await self.setup_callbacks()
+                    except Exception as err:
+                        _LOGGER.warning("Failed to re-register callbacks: %s", err)
             
             # Get current values for all data points
-            _LOGGER.debug("Fetching current values from device...")
-            values = await self.client.get_values()
-            _LOGGER.debug("Received %d values from device", len(values) if values else 0)
+            if not self.callbacks_enabled:
+                # Only fetch values via API in polling mode
+                # In callback mode, values are updated via webhooks
+                _LOGGER.debug("Fetching current values from device...")
+                values = await self.client.get_values()
+                _LOGGER.debug("Received %d values from device", len(values) if values else 0)
+            else:
+                # In callback mode, preserve existing values (updated via webhooks)
+                values = getattr(self, '_last_values', {})
+                _LOGGER.debug("Using cached values in callback mode (%d values)", len(values))
 
             data = {
                 "values": values,
@@ -234,6 +340,9 @@ class GiraX1DataUpdateCoordinator(DataUpdateCoordinator):
                 "functions": self.functions,
                 "ui_config_uid": self.ui_config_uid,
             }
+            
+            # Cache values for callback mode
+            self._last_values = values
             
             _LOGGER.debug("Data update completed successfully")
             return data
