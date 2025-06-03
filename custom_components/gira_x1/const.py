@@ -81,7 +81,7 @@ STATUS_UNAUTHORIZED: Final = 401
 STATUS_NOT_FOUND: Final = 404
 
 # Update intervals
-UPDATE_INTERVAL_SECONDS: Final = 30
+UPDATE_INTERVAL_SECONDS: Final = 5  # Default to 5-second polling
 FAST_UPDATE_INTERVAL_SECONDS: Final = 5
 CALLBACK_UPDATE_INTERVAL_SECONDS: Final = 300  # 5 minutes fallback polling when using callbacks
 

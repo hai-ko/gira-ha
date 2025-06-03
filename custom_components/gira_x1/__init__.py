@@ -88,7 +88,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     if callback_success:
         _LOGGER.info("Callback system enabled - real-time updates active")
     else:
-        _LOGGER.info("Callback system failed - using fast polling (5 seconds)")
+        _LOGGER.info("Callback system failed - using default 5-second polling")
     
     # Log initial data summary
     if coordinator.data:
@@ -199,8 +199,9 @@ class GiraX1DataUpdateCoordinator(DataUpdateCoordinator):
         self.callbacks_enabled = False
         self._webhook_handlers = None
 
-        # Use longer polling interval when callbacks are enabled
+        # Use 5-second polling as default (no batch requests - individual datapoint polling)
         update_interval = timedelta(seconds=UPDATE_INTERVAL_SECONDS)
+        _LOGGER.info("Initializing coordinator with %d-second default polling interval", UPDATE_INTERVAL_SECONDS)
 
         super().__init__(
             hass,
@@ -257,16 +258,16 @@ class GiraX1DataUpdateCoordinator(DataUpdateCoordinator):
                            CALLBACK_UPDATE_INTERVAL_SECONDS)
                 return True
             else:
-                _LOGGER.warning("Failed to register callbacks, using fast polling (5 seconds)")
-                # Use fast polling when callbacks fail
-                self.update_interval = timedelta(seconds=FAST_UPDATE_INTERVAL_SECONDS)
+                _LOGGER.warning("Failed to register callbacks, using default 5-second polling")
+                # Use default 5-second polling when callbacks fail
+                self.update_interval = timedelta(seconds=UPDATE_INTERVAL_SECONDS)
                 return False
                 
         except Exception as err:
             _LOGGER.error("Error setting up callbacks: %s", err, exc_info=True)
-            # Use fast polling when callback setup fails
-            _LOGGER.warning("Callback setup failed, using fast polling (5 seconds)")
-            self.update_interval = timedelta(seconds=FAST_UPDATE_INTERVAL_SECONDS)
+            # Use default 5-second polling when callback setup fails
+            _LOGGER.warning("Callback setup failed, using default 5-second polling")
+            self.update_interval = timedelta(seconds=UPDATE_INTERVAL_SECONDS)
             return False
 
     async def cleanup_callbacks(self) -> None:
@@ -343,13 +344,13 @@ class GiraX1DataUpdateCoordinator(DataUpdateCoordinator):
                     except Exception as err:
                         _LOGGER.warning("Failed to re-register callbacks: %s", err)
             
-            # Get current values for all data points
+            # Get current values for all data points using individual polling (no batch endpoint)
             if not self.callbacks_enabled:
-                # Only fetch values via API in polling mode
+                # Only fetch values via API in polling mode - individual datapoint requests
                 # In callback mode, values are updated via webhooks
-                _LOGGER.debug("Fetching current values from device...")
+                _LOGGER.debug("Fetching current values from device using individual datapoint polling...")
                 values = await self.client.get_values()
-                _LOGGER.debug("Received %d values from device", len(values) if values else 0)
+                _LOGGER.debug("Received %d values from device via individual polling", len(values) if values else 0)
             else:
                 # In callback mode, preserve existing values (updated via webhooks)
                 values = getattr(self, '_last_values', {})

@@ -381,9 +381,11 @@ class GiraX1Client:
     async def get_values(self, uid: Optional[str] = None) -> Dict[str, Any]:
         """Get current values from the Gira X1.
         
+        Note: No batch endpoint available - uses individual /api/values/{uid} requests.
+        
         Args:
             uid: Optional UID to get specific datapoint value.
-                 If None, gets values for all known datapoints from UI config.
+                 If None, gets values for all known datapoints from UI config using individual requests.
         """
         if uid:
             # Get value for specific datapoint
@@ -399,8 +401,8 @@ class GiraX1Client:
             
             return values_dict
         else:
-            # Get values for all datapoints from UI config
-            _LOGGER.debug("Getting values for all datapoints from UI config...")
+            # Get values for all datapoints using individual requests (no batch endpoint available)
+            _LOGGER.debug("Getting values for all datapoints using individual polling...")
             
             # First get UI config to find all datapoint IDs
             ui_config = await self.get_ui_config()
@@ -413,9 +415,9 @@ class GiraX1Client:
                     if dp_uid:
                         all_datapoint_ids.add(dp_uid)
             
-            _LOGGER.debug(f"Found {len(all_datapoint_ids)} datapoints to fetch values for")
+            _LOGGER.debug(f"Found {len(all_datapoint_ids)} datapoints to fetch individually (no batch endpoint)")
             
-            # Fetch values for each datapoint individually
+            # Fetch values for each datapoint individually using /api/values/{uid}
             all_values = {}
             successful_fetches = 0
             failed_fetches = 0
