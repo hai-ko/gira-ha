@@ -26,7 +26,8 @@ async def async_setup_entry(
     
     entities = []
     
-    for function in coordinator.functions.values():
+    functions = coordinator.data.get("functions", {}) if coordinator.data else {}
+    for function in functions.values():
         function_type = function.get("functionType")
         channel_type = function.get("channelType")
         

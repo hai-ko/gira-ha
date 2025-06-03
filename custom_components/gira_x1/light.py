@@ -33,7 +33,8 @@ async def async_setup_entry(
     entities = []
     
     # Get all functions that are lights from the UI config
-    for function in coordinator.functions.values():
+    functions = coordinator.data.get("functions", {}) if coordinator.data else {}
+    for function in functions.values():
         function_type = function.get("functionType", "")
         channel_type = function.get("channelType", "")
         
@@ -88,13 +89,14 @@ class GiraX1Light(GiraX1Entity, LightEntity):
     @property
     def is_on(self) -> bool:
         """Return true if light is on."""
+        values = self.coordinator.data.get("values", {}) if self.coordinator.data else {}
         if self._on_off_uid:
             # Use OnOff data point if available
-            value = self.coordinator.data.get(self._on_off_uid, False)
+            value = values.get(self._on_off_uid, False)
             return bool(value)
         elif self._brightness_uid:
             # Fall back to brightness data point
-            value = self.coordinator.data.get(self._brightness_uid, 0)
+            value = values.get(self._brightness_uid, 0)
             return value > 0
         return False
 
@@ -102,7 +104,8 @@ class GiraX1Light(GiraX1Entity, LightEntity):
     def brightness(self) -> Optional[int]:
         """Return the brightness of this light between 0..255."""
         if self._brightness_uid:
-            value = self.coordinator.data.get(self._brightness_uid, 0)
+            values = self.coordinator.data.get("values", {}) if self.coordinator.data else {}
+            value = values.get(self._brightness_uid, 0)
             # Convert from percentage (0-100) to HA brightness (0-255)
             return int(value * 255 / 100) if value > 0 else 0
         return None

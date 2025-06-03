@@ -31,7 +31,8 @@ async def async_setup_entry(
     
     entities = []
     
-    for function in coordinator.functions.values():
+    functions = coordinator.data.get("functions", {}) if coordinator.data else {}
+    for function in functions.values():
         function_type = function.get("functionType")
         channel_type = function.get("channelType")
         
@@ -115,7 +116,8 @@ class GiraX1Climate(GiraX1Entity, ClimateEntity):
         if not self._current_temp_datapoint:
             return None
             
-        value = self.coordinator.data.get(self._current_temp_datapoint["uid"])
+        values = self.coordinator.data.get("values", {}) if self.coordinator.data else {}
+        value = values.get(self._current_temp_datapoint["uid"])
         if value is not None:
             try:
                 return float(value)
@@ -129,7 +131,8 @@ class GiraX1Climate(GiraX1Entity, ClimateEntity):
         if not self._setpoint_datapoint:
             return None
             
-        value = self.coordinator.data.get(self._setpoint_datapoint["uid"])
+        values = self.coordinator.data.get("values", {}) if self.coordinator.data else {}
+        value = values.get(self._setpoint_datapoint["uid"])
         if value is not None:
             try:
                 return float(value)

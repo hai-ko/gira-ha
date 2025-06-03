@@ -28,7 +28,8 @@ async def async_setup_entry(
     entities = []
     
     # Get all functions that are switches from the UI config
-    for function in coordinator.functions.values():
+    functions = coordinator.data.get("functions", {}) if coordinator.data else {}
+    for function in functions.values():
         function_type = function.get("functionType", "")
         channel_type = function.get("channelType", "")
         
@@ -59,7 +60,8 @@ class GiraX1Switch(GiraX1Entity, SwitchEntity):
     def is_on(self) -> bool:
         """Return true if switch is on."""
         if self._on_off_uid:
-            value = self.coordinator.data.get(self._on_off_uid, False)
+            values = self.coordinator.data.get("values", {}) if self.coordinator.data else {}
+            value = values.get(self._on_off_uid, False)
             return bool(value)
         return False
 

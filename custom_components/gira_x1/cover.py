@@ -33,7 +33,8 @@ async def async_setup_entry(
     entities = []
     
     # Get all functions that are covers from the UI config
-    for function in coordinator.functions.values():
+    functions = coordinator.data.get("functions", {}) if coordinator.data else {}
+    for function in functions.values():
         function_type = function.get("functionType", "")
         channel_type = function.get("channelType", "")
         
@@ -93,7 +94,8 @@ class GiraX1Cover(GiraX1Entity, CoverEntity):
         None is unknown, 0 is closed, 100 is fully open.
         """
         if self._position_uid:
-            value = self.coordinator.data.get(self._position_uid, 0)
+            values = self.coordinator.data.get("values", {}) if self.coordinator.data else {}
+            value = values.get(self._position_uid, 0)
             return int(value)
         return None
 
@@ -101,7 +103,8 @@ class GiraX1Cover(GiraX1Entity, CoverEntity):
     def current_cover_tilt_position(self) -> Optional[int]:
         """Return current tilt position of cover."""
         if self._slat_position_uid:
-            value = self.coordinator.data.get(self._slat_position_uid, 0)
+            values = self.coordinator.data.get("values", {}) if self.coordinator.data else {}
+            value = values.get(self._slat_position_uid, 0)
             return int(value)
         return None
 
@@ -164,8 +167,6 @@ class GiraX1Cover(GiraX1Entity, CoverEntity):
             await self.coordinator.async_request_refresh()
         else:
             _LOGGER.warning("Stop not supported for cover %s", self._function["uid"])
-        else:
-            _LOGGER.warning("Stop not supported for cover %s", self._func_id)
-        # Send a stop command - this might need adjustment based on actual API
-        # For now, we'll just refresh to get current position
-        await self.coordinator.async_request_refresh()
+            # Send a stop command - this might need adjustment based on actual API
+            # For now, we'll just refresh to get current position
+            await self.coordinator.async_request_refresh()

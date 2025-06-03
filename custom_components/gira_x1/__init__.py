@@ -134,13 +134,6 @@ class GiraX1DataUpdateCoordinator(DataUpdateCoordinator):
             update_interval=timedelta(seconds=UPDATE_INTERVAL_SECONDS),
         )
 
-    @property 
-    def data(self):
-        """Return the current values data."""
-        if hasattr(self, '_data') and self._data:
-            return self._data.get("values", {})
-        return {}
-
     async def _async_update_data(self):
         """Update data via library."""
         try:
@@ -169,8 +162,6 @@ class GiraX1DataUpdateCoordinator(DataUpdateCoordinator):
                 "ui_config_uid": self.ui_config_uid,
             }
             
-            # Store data internally for property access
-            self._data = data
             return data
             
         except GiraX1ApiError as err:

@@ -25,12 +25,13 @@ async def async_setup_entry(
     async_add_entities: AddEntitiesCallback,
 ) -> None:
     """Set up Gira X1 sensors from a config entry."""
-    coordinator = hass.data[DOMAIN][config_entry.entry_id]["coordinator"]
+    coordinator: GiraX1DataUpdateCoordinator = hass.data[DOMAIN][config_entry.entry_id]
 
     entities = []
     
     # Get all functions that are sensors from the UI config
-    for function in coordinator.data.get("functions", []):
+    functions = coordinator.data.get("functions", {}) if coordinator.data else {}
+    for function in functions.values():
         function_type = function.get("functionType", "")
         channel_type = function.get("channelType", "")
         
@@ -82,7 +83,8 @@ class GiraX1Sensor(GiraX1Entity, SensorEntity):
     def native_value(self):
         """Return the state of the sensor."""
         if self._data_point_uid:
-            return self.coordinator.data.get(self._data_point_uid)
+            values = self.coordinator.data.get("values", {}) if self.coordinator.data else {}
+            return values.get(self._data_point_uid)
         return None
 
 

@@ -23,12 +23,13 @@ async def async_setup_entry(
     async_add_entities: AddEntitiesCallback,
 ) -> None:
     """Set up Gira X1 binary sensors from a config entry."""
-    coordinator = hass.data[DOMAIN][config_entry.entry_id]["coordinator"]
+    coordinator: GiraX1DataUpdateCoordinator = hass.data[DOMAIN][config_entry.entry_id]
 
     entities = []
     
     # Get all functions that are binary sensors from the UI config
-    for function in coordinator.data.get("functions", []):
+    functions = coordinator.data.get("functions", {}) if coordinator.data else {}
+    for function in functions.values():
         function_type = function.get("functionType", "")
         channel_type = function.get("channelType", "")
         display_name = function.get("displayName", "").lower()
@@ -82,7 +83,8 @@ class GiraX1BinarySensor(GiraX1Entity, BinarySensorEntity):
     def is_on(self) -> bool:
         """Return true if the binary sensor is on."""
         if self._data_point_uid:
-            value = self.coordinator.data.get(self._data_point_uid, False)
+            values = self.coordinator.data.get("values", {}) if self.coordinator.data else {}
+            value = values.get(self._data_point_uid, False)
             return bool(value)
         return False
 
