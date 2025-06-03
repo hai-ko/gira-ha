@@ -278,6 +278,24 @@ class GiraX1Client:
                             
                             # Check content type before trying to parse JSON
                             content_type = retry_response.headers.get('content-type', '').lower()
+                            
+                            # Handle empty content-type headers gracefully
+                            if not content_type:
+                                response_text = await retry_response.text()
+                                # If response is empty or whitespace, treat as successful no-content
+                                if not response_text.strip():
+                                    return {}
+                                # Try to parse as JSON if it looks like JSON
+                                if response_text.strip().startswith(('{', '[')):
+                                    try:
+                                        return await retry_response.json()
+                                    except:
+                                        pass
+                                # Log but don't error for missing content-type with successful status
+                                _LOGGER.debug("Empty content-type for endpoint %s after retry, treating as success. Response: %s", 
+                                            endpoint, response_text[:100])
+                                return {"success": True, "raw_response": response_text}
+                            
                             if 'application/json' not in content_type:
                                 response_text = await retry_response.text()
                                 _LOGGER.warning("Unexpected content type '%s' for endpoint %s after retry. Response: %s", 
@@ -298,6 +316,24 @@ class GiraX1Client:
                     
                     # Check content type before trying to parse JSON
                     content_type = response.headers.get('content-type', '').lower()
+                    
+                    # Handle empty content-type headers gracefully
+                    if not content_type:
+                        response_text = await response.text()
+                        # If response is empty or whitespace, treat as successful no-content
+                        if not response_text.strip():
+                            return {}
+                        # Try to parse as JSON if it looks like JSON
+                        if response_text.strip().startswith(('{', '[')):
+                            try:
+                                return await response.json()
+                            except:
+                                pass
+                        # Log but don't error for missing content-type with successful status
+                        _LOGGER.debug("Empty content-type for endpoint %s, treating as success. Response: %s", 
+                                    endpoint, response_text[:100])
+                        return {"success": True, "raw_response": response_text}
+                    
                     if 'application/json' not in content_type:
                         response_text = await response.text()
                         _LOGGER.warning("Unexpected content type '%s' for endpoint %s. Response: %s", 

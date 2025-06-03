@@ -1,19 +1,5 @@
-refresh_devset_raw_value:
-  name: Set Raw Value
-  description: Set a raw value for a specific datapoint
-  fields:
-    datapoint_id:
-      name: Datapoint ID
-      description: The UID of the datapoint to set
-      required: true
-      selector:
-        text:
-    value:
-      name: Value
-      description: The value to set (can be boolean, number, or string)
-      required: true
-      selector:
-        text:sh Device
+refresh_device:
+  name: Refresh Device
   description: Force refresh a specific Gira X1 device
   fields:
     device_id:

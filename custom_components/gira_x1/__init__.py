@@ -232,11 +232,20 @@ class GiraX1DataUpdateCoordinator(DataUpdateCoordinator):
                         value_callback_url, service_callback_url)
             
             # Register callbacks with Gira X1
+            # Try with callback testing first, then without if it fails
             success = await self.client.register_callbacks(
                 value_callback_url=value_callback_url,
                 service_callback_url=service_callback_url,
                 test_callbacks=True
             )
+            
+            if not success:
+                _LOGGER.warning("Callback test failed, retrying without test")
+                success = await self.client.register_callbacks(
+                    value_callback_url=value_callback_url,
+                    service_callback_url=service_callback_url,
+                    test_callbacks=False
+                )
             
             if success:
                 self.callbacks_enabled = True

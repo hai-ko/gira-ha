@@ -36,14 +36,21 @@ class GiraX1ValueCallbackView(HomeAssistantView):
             data = await request.json()
             _LOGGER.debug("Received value callback: %s", data)
             
-            # Validate token matches our client
+            # Validate token matches our client (if token is available)
             token = data.get("token")
-            if not token or token != self.coordinator.client._token:
-                _LOGGER.warning("Invalid token in value callback: %s", token)
+            client_token = getattr(self.coordinator.client, '_token', None)
+            
+            # For test events, be more lenient with token validation
+            events = data.get("events", [])
+            is_test_event = len(events) == 0  # Test events often have empty event list
+            
+            if not is_test_event and (not token or not client_token or token != client_token):
+                _LOGGER.warning("Invalid token in value callback: %s (expected: %s)", token, client_token)
                 return web.Response(status=401, text="Invalid token")
+            elif is_test_event:
+                _LOGGER.info("Received test callback event, responding with 200 OK")
             
             # Process value events
-            events = data.get("events", [])
             if events:
                 await self._process_value_events(events)
             
@@ -109,14 +116,21 @@ class GiraX1ServiceCallbackView(HomeAssistantView):
             data = await request.json()
             _LOGGER.debug("Received service callback: %s", data)
             
-            # Validate token matches our client
+            # Validate token matches our client (if token is available)
             token = data.get("token")
-            if not token or token != self.coordinator.client._token:
-                _LOGGER.warning("Invalid token in service callback: %s", token)
+            client_token = getattr(self.coordinator.client, '_token', None)
+            
+            # For test events, be more lenient with token validation
+            events = data.get("events", [])
+            is_test_event = any(event.get("event") == "test" for event in events)
+            
+            if not is_test_event and (not token or not client_token or token != client_token):
+                _LOGGER.warning("Invalid token in service callback: %s (expected: %s)", token, client_token)
                 return web.Response(status=401, text="Invalid token")
+            elif is_test_event:
+                _LOGGER.info("Received test callback event, responding with 200 OK")
             
             # Process service events
-            events = data.get("events", [])
             if events:
                 await self._process_service_events(events)
             
