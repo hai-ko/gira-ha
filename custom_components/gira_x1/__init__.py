@@ -222,9 +222,6 @@ class GiraX1DataUpdateCoordinator(DataUpdateCoordinator):
             
             _LOGGER.info("Using callback base URL: %s", external_url)
 
-            # Register webhook handlers
-            self._webhook_handlers = register_webhook_handlers(self.hass, self)
-            
             # Build callback URLs
             value_callback_url = f"{external_url}{WEBHOOK_VALUE_CALLBACK_PATH}"
             service_callback_url = f"{external_url}{WEBHOOK_SERVICE_CALLBACK_PATH}"
@@ -232,7 +229,7 @@ class GiraX1DataUpdateCoordinator(DataUpdateCoordinator):
             _LOGGER.info("Registering callbacks with URLs: value=%s, service=%s", 
                         value_callback_url, service_callback_url)
             
-            # Register callbacks with Gira X1
+            # Register callbacks with Gira X1 FIRST - only register webhooks if this succeeds
             # Try with callback testing first, then without if it fails
             _LOGGER.info("Attempting callback registration with testing enabled...")
             success = await self.client.register_callbacks(
@@ -251,26 +248,43 @@ class GiraX1DataUpdateCoordinator(DataUpdateCoordinator):
                 )
             
             if success:
+                # Only register webhook handlers if Gira X1 callback registration succeeded
+                _LOGGER.info("Callback registration successful, now registering webhook handlers...")
+                self._webhook_handlers = register_webhook_handlers(self.hass, self)
+                
                 self.callbacks_enabled = True
                 # Even with callbacks, use 5-second polling to ensure external changes are detected
                 # Callbacks may fail silently or miss updates, so we rely on polling as primary method
                 self.update_interval = timedelta(seconds=UPDATE_INTERVAL_SECONDS)
-                _LOGGER.info("Callbacks registered successfully, but still using %d second polling for reliability", 
+                _LOGGER.info("Callbacks and webhooks registered successfully, but still using %d second polling for reliability", 
                            UPDATE_INTERVAL_SECONDS)
                 return True
             else:
-                _LOGGER.warning("Failed to register callbacks, using default 5-second polling")
+                _LOGGER.warning("Failed to register callbacks with Gira X1, using pure polling mode")
+                # Do NOT register webhook handlers if callbacks failed
+                self._webhook_handlers = None
                 # Use default 5-second polling when callbacks fail
                 self.callbacks_enabled = False
                 self.update_interval = timedelta(seconds=UPDATE_INTERVAL_SECONDS)
+                _LOGGER.info("Pure polling mode enabled with %d second intervals", UPDATE_INTERVAL_SECONDS)
                 return False
                 
         except Exception as err:
             _LOGGER.error("Error setting up callbacks: %s", err, exc_info=True)
+            # Ensure no webhook handlers are left registered on error
+            if hasattr(self, '_webhook_handlers') and self._webhook_handlers:
+                try:
+                    unregister_webhook_handlers(self.hass)
+                    _LOGGER.info("Cleaned up webhook handlers after callback setup error")
+                except Exception as cleanup_err:
+                    _LOGGER.warning("Failed to clean up webhook handlers: %s", cleanup_err)
+            self._webhook_handlers = None
+            
             # Use default 5-second polling when callback setup fails
-            _LOGGER.warning("Callback setup failed, using default 5-second polling")
+            _LOGGER.warning("Callback setup failed, using pure polling mode")
             self.callbacks_enabled = False
             self.update_interval = timedelta(seconds=UPDATE_INTERVAL_SECONDS)
+            _LOGGER.info("Pure polling mode enabled with %d second intervals", UPDATE_INTERVAL_SECONDS)
             return False
 
     async def cleanup_callbacks(self) -> None:
@@ -282,8 +296,13 @@ class GiraX1DataUpdateCoordinator(DataUpdateCoordinator):
             except Exception as err:
                 _LOGGER.warning("Error unregistering callbacks: %s", err)
         
+        # Always try to clean up webhook handlers if they exist
         if self._webhook_handlers:
-            unregister_webhook_handlers(self.hass)
+            try:
+                unregister_webhook_handlers(self.hass)
+                _LOGGER.info("Unregistered webhook handlers from Home Assistant")
+            except Exception as err:
+                _LOGGER.warning("Error unregistering webhook handlers: %s", err)
             self._webhook_handlers = None
         
         self.callbacks_enabled = False
@@ -292,10 +311,12 @@ class GiraX1DataUpdateCoordinator(DataUpdateCoordinator):
         """Update data via library."""
         try:
             current_time = datetime.now().strftime("%H:%M:%S")
-            if self.callbacks_enabled:
-                _LOGGER.debug("[%s] Starting data update cycle (callbacks registered, but polling for reliability)", current_time)
+            if self.callbacks_enabled and self._webhook_handlers:
+                _LOGGER.debug("[%s] Starting data update cycle (hybrid mode: callbacks + polling for reliability)", current_time)
+            elif self.callbacks_enabled and not self._webhook_handlers:
+                _LOGGER.debug("[%s] Starting data update cycle (callbacks enabled but no webhooks - using polling)", current_time)
             else:
-                _LOGGER.debug("[%s] Starting data update cycle (polling mode)", current_time)
+                _LOGGER.debug("[%s] Starting data update cycle (pure polling mode - no callbacks)", current_time)
             
             # Check if UI config has changed
             current_uid = await self.client.get_ui_config_uid()
