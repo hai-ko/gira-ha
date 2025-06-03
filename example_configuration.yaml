@@ -11,11 +11,11 @@ gira_x1:
   password: "your_password"
 
 # Method 2: Token Authentication (alternative to username/password)
-# gira_x1:
-#   host: "192.168.1.100"  # IP address of your Gira X1 device
-#   port: 80               # Port for REST API (default: 80)
-#   auth_method: "token"
-#   token: "your_api_token_here"
+gira_x1:
+  host: "10.1.1.85"  # IP address of your Gira X1 device
+  port: 443          # Port for HTTPS API (Gira X1 uses HTTPS on port 443)
+  auth_method: "token"
+  token: "t3jwcfrqIAubGpVaLcNT4r5YSUbU4sE5"
 
 # Example automation using Gira X1 entities
 automation:

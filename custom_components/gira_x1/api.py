@@ -68,6 +68,16 @@ class GiraX1Client:
         self._auth_lock = asyncio.Lock()
 
     @property
+    def host(self) -> str:
+        """Return the host."""
+        return self._host
+
+    @property
+    def port(self) -> int:
+        """Return the port."""
+        return self._port
+
+    @property
     def is_authenticated(self) -> bool:
         """Return if client is authenticated."""
         return self._authenticated and self._token is not None
