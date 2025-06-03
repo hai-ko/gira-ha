@@ -3,9 +3,6 @@ from __future__ import annotations
 
 import asyncio
 import logging
-import socket
-import subprocess
-import platform
 from datetime import timedelta, datetime
 
 from homeassistant.config_entries import ConfigEntry
@@ -13,23 +10,16 @@ from homeassistant.const import CONF_HOST, CONF_PASSWORD, CONF_PORT, CONF_USERNA
 from homeassistant.core import HomeAssistant, ServiceCall
 from homeassistant.exceptions import ConfigEntryNotReady
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
-from homeassistant.helpers.network import get_url
 import voluptuous as vol
 
 from .api import GiraX1ApiError, GiraX1Client
 from .const import (
     DOMAIN, 
     UPDATE_INTERVAL_SECONDS,
-    FAST_UPDATE_INTERVAL_SECONDS,
-    CALLBACK_UPDATE_INTERVAL_SECONDS,
-    WEBHOOK_VALUE_CALLBACK_PATH,
-    WEBHOOK_SERVICE_CALLBACK_PATH,
     CONF_AUTH_METHOD, 
     CONF_TOKEN, 
-    CONF_CALLBACK_URL_OVERRIDE,
     AUTH_METHOD_TOKEN
 )
-from .webhook import register_webhook_handlers, unregister_webhook_handlers
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -81,14 +71,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     _LOGGER.info("Fetching initial data from Gira X1...")
     await coordinator.async_config_entry_first_refresh()
     
-    # Set up callback system
-    _LOGGER.info("Setting up callback system...")
-    callback_success = await coordinator.setup_callbacks()
-    
-    if callback_success:
-        _LOGGER.info("Callback system enabled - real-time updates active")
-    else:
-        _LOGGER.info("Callback system failed - using default 5-second polling")
+    # Pure polling mode only - no callbacks
+    _LOGGER.info("Integration configured for pure polling mode with %d second intervals", UPDATE_INTERVAL_SECONDS)
     
     # Log initial data summary
     if coordinator.data:
@@ -109,7 +93,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         
         _LOGGER.info("Function types found: %s", function_types)
         _LOGGER.info("Channel types found: %s", channel_types)
-        _LOGGER.info("Callback system: %s", "Active" if coordinator.callbacks_enabled else "Disabled (using polling)")
+        _LOGGER.info("Pure polling mode active")
         
         # Log a sample of the raw UI config for debugging
         if ui_config and "functions" in ui_config:
@@ -172,8 +156,7 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     if unload_ok := await hass.config_entries.async_unload_platforms(entry, PLATFORMS):
         coordinator = hass.data[DOMAIN][entry.entry_id]
         
-        # Clean up callbacks
-        await coordinator.cleanup_callbacks()
+        # Clean up client connection
         await coordinator.client.logout()
         
         # Remove services
@@ -196,12 +179,10 @@ class GiraX1DataUpdateCoordinator(DataUpdateCoordinator):
         self.functions = {}
         self.ui_config_uid = None
         self.host = client.host  # Expose host for device info
-        self.callbacks_enabled = False
-        self._webhook_handlers = None
 
-        # Use 5-second polling as default (no batch requests - individual datapoint polling)
+        # Use 5-second polling interval
         update_interval = timedelta(seconds=UPDATE_INTERVAL_SECONDS)
-        _LOGGER.info("Initializing coordinator with %d-second default polling interval", UPDATE_INTERVAL_SECONDS)
+        _LOGGER.info("Initializing coordinator with %d-second polling interval", UPDATE_INTERVAL_SECONDS)
 
         super().__init__(
             hass,
@@ -210,113 +191,11 @@ class GiraX1DataUpdateCoordinator(DataUpdateCoordinator):
             update_interval=update_interval,
         )
 
-    async def setup_callbacks(self) -> bool:
-        """Set up callback system for real-time updates."""
-        try:
-            # Use the new intelligent callback URL determination
-            external_url = determine_callback_base_url(self.hass, self.config_entry)
-            
-            if not external_url:
-                _LOGGER.warning("No suitable callback URL available, using polling")
-                return False
-            
-            _LOGGER.info("Using callback base URL: %s", external_url)
-
-            # Build callback URLs
-            value_callback_url = f"{external_url}{WEBHOOK_VALUE_CALLBACK_PATH}"
-            service_callback_url = f"{external_url}{WEBHOOK_SERVICE_CALLBACK_PATH}"
-            
-            _LOGGER.info("Registering callbacks with URLs: value=%s, service=%s", 
-                        value_callback_url, service_callback_url)
-            
-            # Register callbacks with Gira X1 FIRST - only register webhooks if this succeeds
-            # Try with callback testing first, then without if it fails
-            _LOGGER.info("Attempting callback registration with testing enabled...")
-            success = await self.client.register_callbacks(
-                value_callback_url=value_callback_url,
-                service_callback_url=service_callback_url,
-                test_callbacks=True
-            )
-            
-            if not success:
-                _LOGGER.warning("Callback test failed, retrying without test")
-                _LOGGER.info("Attempting callback registration without testing...")
-                success = await self.client.register_callbacks(
-                    value_callback_url=value_callback_url,
-                    service_callback_url=service_callback_url,
-                    test_callbacks=False
-                )
-            
-            if success:
-                # Only register webhook handlers if Gira X1 callback registration succeeded
-                _LOGGER.info("Callback registration successful, now registering webhook handlers...")
-                self._webhook_handlers = register_webhook_handlers(self.hass, self)
-                
-                self.callbacks_enabled = True
-                # Even with callbacks, use 5-second polling to ensure external changes are detected
-                # Callbacks may fail silently or miss updates, so we rely on polling as primary method
-                self.update_interval = timedelta(seconds=UPDATE_INTERVAL_SECONDS)
-                _LOGGER.info("Callbacks and webhooks registered successfully, but still using %d second polling for reliability", 
-                           UPDATE_INTERVAL_SECONDS)
-                return True
-            else:
-                _LOGGER.warning("Failed to register callbacks with Gira X1, using pure polling mode")
-                # Do NOT register webhook handlers if callbacks failed
-                self._webhook_handlers = None
-                # Use default 5-second polling when callbacks fail
-                self.callbacks_enabled = False
-                self.update_interval = timedelta(seconds=UPDATE_INTERVAL_SECONDS)
-                _LOGGER.info("Pure polling mode enabled with %d second intervals", UPDATE_INTERVAL_SECONDS)
-                return False
-                
-        except Exception as err:
-            _LOGGER.error("Error setting up callbacks: %s", err, exc_info=True)
-            # Ensure no webhook handlers are left registered on error
-            if hasattr(self, '_webhook_handlers') and self._webhook_handlers:
-                try:
-                    unregister_webhook_handlers(self.hass)
-                    _LOGGER.info("Cleaned up webhook handlers after callback setup error")
-                except Exception as cleanup_err:
-                    _LOGGER.warning("Failed to clean up webhook handlers: %s", cleanup_err)
-            self._webhook_handlers = None
-            
-            # Use default 5-second polling when callback setup fails
-            _LOGGER.warning("Callback setup failed, using pure polling mode")
-            self.callbacks_enabled = False
-            self.update_interval = timedelta(seconds=UPDATE_INTERVAL_SECONDS)
-            _LOGGER.info("Pure polling mode enabled with %d second intervals", UPDATE_INTERVAL_SECONDS)
-            return False
-
-    async def cleanup_callbacks(self) -> None:
-        """Clean up callback system."""
-        if self.callbacks_enabled:
-            try:
-                await self.client.unregister_callbacks()
-                _LOGGER.info("Unregistered callbacks from Gira X1")
-            except Exception as err:
-                _LOGGER.warning("Error unregistering callbacks: %s", err)
-        
-        # Always try to clean up webhook handlers if they exist
-        if self._webhook_handlers:
-            try:
-                unregister_webhook_handlers(self.hass)
-                _LOGGER.info("Unregistered webhook handlers from Home Assistant")
-            except Exception as err:
-                _LOGGER.warning("Error unregistering webhook handlers: %s", err)
-            self._webhook_handlers = None
-        
-        self.callbacks_enabled = False
-
     async def _async_update_data(self):
         """Update data via library."""
         try:
             current_time = datetime.now().strftime("%H:%M:%S")
-            if self.callbacks_enabled and self._webhook_handlers:
-                _LOGGER.debug("[%s] Starting data update cycle (hybrid mode: callbacks + polling for reliability)", current_time)
-            elif self.callbacks_enabled and not self._webhook_handlers:
-                _LOGGER.debug("[%s] Starting data update cycle (callbacks enabled but no webhooks - using polling)", current_time)
-            else:
-                _LOGGER.debug("[%s] Starting data update cycle (pure polling mode - no callbacks)", current_time)
+            _LOGGER.debug("[%s] Starting data update cycle (pure polling mode)", current_time)
             
             # Check if UI config has changed
             current_uid = await self.client.get_ui_config_uid()
@@ -360,18 +239,9 @@ class GiraX1DataUpdateCoordinator(DataUpdateCoordinator):
                                     func.get("channelType", "Unknown"))
                 else:
                     _LOGGER.warning("No functions found in UI config!")
-                    
-                # Re-register callbacks if config changed (callbacks might have been lost)
-                if self.callbacks_enabled:
-                    _LOGGER.info("Re-registering callbacks after config change")
-                    try:
-                        await self.setup_callbacks()
-                    except Exception as err:
-                        _LOGGER.warning("Failed to re-register callbacks: %s", err)
             
-            # Get current values for all data points using individual polling (no batch endpoint)
-            # ALWAYS poll for values to ensure external changes are detected
-            # Callbacks are unreliable and may fail silently, so we use polling as the primary method
+            # Get current values for all data points using individual polling
+            # Pure polling mode ensures all external changes are detected
             _LOGGER.debug("Fetching current values from device using individual datapoint polling...")
             try:
                 values = await self.client.get_values()
@@ -405,157 +275,3 @@ class GiraX1DataUpdateCoordinator(DataUpdateCoordinator):
         except Exception as err:
             _LOGGER.error("Unexpected error during data update: %s", err, exc_info=True)
             raise UpdateFailed(f"Unexpected error: {err}") from err
-
-def get_local_ip_for_gira_x1() -> str | None:
-    """
-    Detect the local IP address that should be used for Gira X1 callbacks.
-    
-    Returns:
-        The best IP address to use for callbacks, or None if not found.
-        
-    Priority:
-    1. 10.1.1.85 (Home Assistant host) if we're running on that IP
-    2. 10.1.1.175 (local testing machine) if we're running on that IP
-    3. Any IP in 10.1.1.x subnet
-    4. Any private IP that can reach Gira X1
-    """
-    try:
-        # First, check if we're running on the known target IPs
-        hostname = socket.gethostname()
-        _LOGGER.debug("Current hostname: %s", hostname)
-        
-        # Get all local IP addresses
-        local_ips = []
-        
-        # Method 1: Get IPs from hostname resolution
-        try:
-            for addr_info in socket.getaddrinfo(hostname, None):
-                ip = addr_info[4][0]
-                if ip not in local_ips and not ip.startswith('127.'):
-                    local_ips.append(ip)
-        except Exception as e:
-            _LOGGER.debug("Error getting IPs from hostname: %s", e)
-        
-        # Method 2: Get IPs from network interfaces (cross-platform)
-        try:
-            # Connect to a remote address to find the local IP used for routing
-            with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
-                # Connect to Gira X1 device to find the best local IP
-                s.connect(("10.1.1.85", 80))  # Gira X1 IP
-                local_ip = s.getsockname()[0]
-                if local_ip not in local_ips and not local_ip.startswith('127.'):
-                    local_ips.append(local_ip)
-        except Exception as e:
-            _LOGGER.debug("Error getting routing IP: %s", e)
-            
-        # Method 3: Try connecting to Google DNS to find default route IP
-        try:
-            with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
-                s.connect(("8.8.8.8", 80))
-                local_ip = s.getsockname()[0]
-                if local_ip not in local_ips and not local_ip.startswith('127.'):
-                    local_ips.append(local_ip)
-        except Exception as e:
-            _LOGGER.debug("Error getting default route IP: %s", e)
-        
-        _LOGGER.info("Detected local IP addresses: %s", local_ips)
-        
-        # Priority selection logic
-        for ip in local_ips:
-            # Priority 1: Home Assistant host IP
-            if ip == "10.1.1.85":
-                _LOGGER.info("Detected Home Assistant host IP: %s", ip)
-                return ip
-                
-        for ip in local_ips:
-            # Priority 2: Local testing machine IP
-            if ip == "10.1.1.175":
-                _LOGGER.info("Detected local testing machine IP: %s", ip)
-                return ip
-                
-        for ip in local_ips:
-            # Priority 3: Any IP in the Gira X1 subnet
-            if ip.startswith("10.1.1."):
-                _LOGGER.info("Detected IP in Gira X1 subnet: %s", ip)
-                return ip
-                
-        for ip in local_ips:
-            # Priority 4: Any private IP
-            if (ip.startswith("192.168.") or 
-                ip.startswith("10.") or 
-                ip.startswith("172.")):
-                _LOGGER.info("Detected private IP: %s", ip)
-                return ip
-                
-        # If no suitable IP found, return the first available
-        if local_ips:
-            _LOGGER.info("Using first available IP: %s", local_ips[0])
-            return local_ips[0]
-            
-        _LOGGER.warning("No suitable local IP address found")
-        return None
-        
-    except Exception as e:
-        _LOGGER.error("Error detecting local IP: %s", e, exc_info=True)
-        return None
-
-
-def determine_callback_base_url(hass: HomeAssistant, config_entry) -> str | None:
-    """
-    Determine the best callback base URL for Gira X1 callbacks.
-    
-    Args:
-        hass: Home Assistant instance
-        config_entry: Configuration entry with optional override
-        
-    Returns:
-        The base URL to use for callbacks (without path), or None if not available
-    """
-    # Check for explicit callback URL override first
-    callback_url_override = config_entry.data.get(CONF_CALLBACK_URL_OVERRIDE)
-    
-    if callback_url_override:
-        base_url = callback_url_override.rstrip('/')
-        _LOGGER.info("Using explicit callback URL override: %s", base_url)
-        return base_url
-    
-    # Try to detect local IP for Gira X1 network
-    local_ip = get_local_ip_for_gira_x1()
-    
-    if local_ip:
-        # Get Home Assistant port
-        ha_port = 8123  # Default HA port
-        try:
-            # Try to get actual HA port from configuration
-            if hasattr(hass.config, 'api') and hasattr(hass.config.api, 'port'):
-                ha_port = hass.config.api.port
-            elif hasattr(hass, 'http') and hasattr(hass.http, 'server_port'):
-                ha_port = hass.http.server_port
-        except Exception as e:
-            _LOGGER.debug("Could not determine HA port, using default 8123: %s", e)
-        
-        # Build local network URL - Gira X1 requires HTTPS for callbacks
-        base_url = f"https://{local_ip}:{ha_port}"
-        _LOGGER.info("Using local network callback URL: %s", base_url)
-        return base_url
-    
-    # Fallback to Home Assistant's default URL detection
-    try:
-        external_url = get_url(hass, prefer_external=True)
-        if external_url:
-            _LOGGER.info("Using Home Assistant external URL: %s", external_url)
-            return external_url.rstrip('/')
-    except Exception as e:
-        _LOGGER.debug("Error getting external URL: %s", e)
-    
-    # Last resort: try internal URL
-    try:
-        internal_url = get_url(hass, prefer_external=False)
-        if internal_url:
-            _LOGGER.info("Using Home Assistant internal URL: %s", internal_url)
-            return internal_url.rstrip('/')
-    except Exception as e:
-        _LOGGER.debug("Error getting internal URL: %s", e)
-    
-    _LOGGER.warning("Could not determine any suitable callback base URL")
-    return None
