@@ -119,6 +119,9 @@ class GiraX1Switch(GiraX1Entity, SwitchEntity):
         if self._on_off_uid:
             values = self.coordinator.data.get("values", {}) if self.coordinator.data else {}
             value = values.get(self._on_off_uid, False)
+            # Handle string values from API (Gira X1 returns "0"/"1" as strings)
+            if isinstance(value, str):
+                return value.lower() in ('true', '1', 'on')
             return bool(value)
         return False
 
