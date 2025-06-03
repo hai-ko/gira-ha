@@ -3,6 +3,9 @@ from __future__ import annotations
 
 import asyncio
 import logging
+import socket
+import subprocess
+import platform
 from datetime import timedelta
 
 from homeassistant.config_entries import ConfigEntry
@@ -22,6 +25,7 @@ from .const import (
     WEBHOOK_SERVICE_CALLBACK_PATH,
     CONF_AUTH_METHOD, 
     CONF_TOKEN, 
+    CONF_CALLBACK_URL_OVERRIDE,
     AUTH_METHOD_TOKEN
 )
 from .webhook import register_webhook_handlers, unregister_webhook_handlers
@@ -205,21 +209,14 @@ class GiraX1DataUpdateCoordinator(DataUpdateCoordinator):
     async def setup_callbacks(self) -> bool:
         """Set up callback system for real-time updates."""
         try:
-            # Get the external URL for Home Assistant
-            try:
-                external_url = get_url(self.hass, prefer_external=True)
-            except Exception:
-                # Fallback to internal URL if external not available
-                external_url = get_url(self.hass, prefer_external=False)
+            # Use the new intelligent callback URL determination
+            external_url = determine_callback_base_url(self.hass, self.config_entry)
             
             if not external_url:
-                _LOGGER.warning("No URL available for callbacks, using polling")
+                _LOGGER.warning("No suitable callback URL available, using polling")
                 return False
-
-            # Gira X1 requires HTTPS for callbacks - force HTTPS if URL is HTTP
-            if external_url.startswith("http://"):
-                external_url = external_url.replace("http://", "https://")
-                _LOGGER.info("Converted callback URL to HTTPS as required by Gira X1: %s", external_url)
+            
+            _LOGGER.info("Using callback base URL: %s", external_url)
 
             # Register webhook handlers
             self._webhook_handlers = register_webhook_handlers(self.hass, self)
@@ -369,3 +366,157 @@ class GiraX1DataUpdateCoordinator(DataUpdateCoordinator):
         except Exception as err:
             _LOGGER.error("Unexpected error during data update: %s", err, exc_info=True)
             raise UpdateFailed(f"Unexpected error: {err}") from err
+
+def get_local_ip_for_gira_x1() -> str | None:
+    """
+    Detect the local IP address that should be used for Gira X1 callbacks.
+    
+    Returns:
+        The best IP address to use for callbacks, or None if not found.
+        
+    Priority:
+    1. 10.1.1.85 (Home Assistant host) if we're running on that IP
+    2. 10.1.1.175 (local testing machine) if we're running on that IP
+    3. Any IP in 10.1.1.x subnet
+    4. Any private IP that can reach Gira X1
+    """
+    try:
+        # First, check if we're running on the known target IPs
+        hostname = socket.gethostname()
+        _LOGGER.debug("Current hostname: %s", hostname)
+        
+        # Get all local IP addresses
+        local_ips = []
+        
+        # Method 1: Get IPs from hostname resolution
+        try:
+            for addr_info in socket.getaddrinfo(hostname, None):
+                ip = addr_info[4][0]
+                if ip not in local_ips and not ip.startswith('127.'):
+                    local_ips.append(ip)
+        except Exception as e:
+            _LOGGER.debug("Error getting IPs from hostname: %s", e)
+        
+        # Method 2: Get IPs from network interfaces (cross-platform)
+        try:
+            # Connect to a remote address to find the local IP used for routing
+            with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
+                # Connect to Gira X1 device to find the best local IP
+                s.connect(("10.1.1.85", 80))  # Gira X1 IP
+                local_ip = s.getsockname()[0]
+                if local_ip not in local_ips and not local_ip.startswith('127.'):
+                    local_ips.append(local_ip)
+        except Exception as e:
+            _LOGGER.debug("Error getting routing IP: %s", e)
+            
+        # Method 3: Try connecting to Google DNS to find default route IP
+        try:
+            with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
+                s.connect(("8.8.8.8", 80))
+                local_ip = s.getsockname()[0]
+                if local_ip not in local_ips and not local_ip.startswith('127.'):
+                    local_ips.append(local_ip)
+        except Exception as e:
+            _LOGGER.debug("Error getting default route IP: %s", e)
+        
+        _LOGGER.info("Detected local IP addresses: %s", local_ips)
+        
+        # Priority selection logic
+        for ip in local_ips:
+            # Priority 1: Home Assistant host IP
+            if ip == "10.1.1.85":
+                _LOGGER.info("Detected Home Assistant host IP: %s", ip)
+                return ip
+                
+        for ip in local_ips:
+            # Priority 2: Local testing machine IP
+            if ip == "10.1.1.175":
+                _LOGGER.info("Detected local testing machine IP: %s", ip)
+                return ip
+                
+        for ip in local_ips:
+            # Priority 3: Any IP in the Gira X1 subnet
+            if ip.startswith("10.1.1."):
+                _LOGGER.info("Detected IP in Gira X1 subnet: %s", ip)
+                return ip
+                
+        for ip in local_ips:
+            # Priority 4: Any private IP
+            if (ip.startswith("192.168.") or 
+                ip.startswith("10.") or 
+                ip.startswith("172.")):
+                _LOGGER.info("Detected private IP: %s", ip)
+                return ip
+                
+        # If no suitable IP found, return the first available
+        if local_ips:
+            _LOGGER.info("Using first available IP: %s", local_ips[0])
+            return local_ips[0]
+            
+        _LOGGER.warning("No suitable local IP address found")
+        return None
+        
+    except Exception as e:
+        _LOGGER.error("Error detecting local IP: %s", e, exc_info=True)
+        return None
+
+
+def determine_callback_base_url(hass: HomeAssistant, config_entry) -> str | None:
+    """
+    Determine the best callback base URL for Gira X1 callbacks.
+    
+    Args:
+        hass: Home Assistant instance
+        config_entry: Configuration entry with optional override
+        
+    Returns:
+        The base URL to use for callbacks (without path), or None if not available
+    """
+    # Check for explicit callback URL override first
+    callback_url_override = config_entry.data.get(CONF_CALLBACK_URL_OVERRIDE)
+    
+    if callback_url_override:
+        base_url = callback_url_override.rstrip('/')
+        _LOGGER.info("Using explicit callback URL override: %s", base_url)
+        return base_url
+    
+    # Try to detect local IP for Gira X1 network
+    local_ip = get_local_ip_for_gira_x1()
+    
+    if local_ip:
+        # Get Home Assistant port
+        ha_port = 8123  # Default HA port
+        try:
+            # Try to get actual HA port from configuration
+            if hasattr(hass.config, 'api') and hasattr(hass.config.api, 'port'):
+                ha_port = hass.config.api.port
+            elif hasattr(hass, 'http') and hasattr(hass.http, 'server_port'):
+                ha_port = hass.http.server_port
+        except Exception as e:
+            _LOGGER.debug("Could not determine HA port, using default 8123: %s", e)
+        
+        # Build local network URL - Gira X1 requires HTTPS for callbacks
+        base_url = f"https://{local_ip}:{ha_port}"
+        _LOGGER.info("Using local network callback URL: %s", base_url)
+        return base_url
+    
+    # Fallback to Home Assistant's default URL detection
+    try:
+        external_url = get_url(hass, prefer_external=True)
+        if external_url:
+            _LOGGER.info("Using Home Assistant external URL: %s", external_url)
+            return external_url.rstrip('/')
+    except Exception as e:
+        _LOGGER.debug("Error getting external URL: %s", e)
+    
+    # Last resort: try internal URL
+    try:
+        internal_url = get_url(hass, prefer_external=False)
+        if internal_url:
+            _LOGGER.info("Using Home Assistant internal URL: %s", internal_url)
+            return internal_url.rstrip('/')
+    except Exception as e:
+        _LOGGER.debug("Error getting internal URL: %s", e)
+    
+    _LOGGER.warning("Could not determine any suitable callback base URL")
+    return None
