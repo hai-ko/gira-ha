@@ -148,11 +148,18 @@ class GiraX1Light(GiraX1Entity, LightEntity):
         if self._on_off_uid:
             # Use OnOff data point if available
             value = values.get(self._on_off_uid, False)
+            # Handle string values from API
+            if isinstance(value, str):
+                return value.lower() in ('true', '1', 'on')
             return bool(value)
         elif self._brightness_uid:
             # Fall back to brightness data point
             value = values.get(self._brightness_uid, 0)
-            return value > 0
+            try:
+                numeric_value = float(value) if isinstance(value, str) else value
+                return numeric_value > 0
+            except (ValueError, TypeError):
+                return False
         return False
 
     @property
@@ -161,8 +168,12 @@ class GiraX1Light(GiraX1Entity, LightEntity):
         if self._brightness_uid:
             values = self.coordinator.data.get("values", {}) if self.coordinator.data else {}
             value = values.get(self._brightness_uid, 0)
-            # Convert from percentage (0-100) to HA brightness (0-255)
-            return int(value * 255 / 100) if value > 0 else 0
+            # Convert string to float if needed, then to percentage (0-100) to HA brightness (0-255)
+            try:
+                numeric_value = float(value) if isinstance(value, str) else value
+                return int(numeric_value * 255 / 100) if numeric_value > 0 else 0
+            except (ValueError, TypeError):
+                return 0
         return None
 
     async def async_turn_on(self, **kwargs: Any) -> None:

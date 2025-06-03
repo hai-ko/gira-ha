@@ -96,7 +96,12 @@ class GiraX1Cover(GiraX1Entity, CoverEntity):
         if self._position_uid:
             values = self.coordinator.data.get("values", {}) if self.coordinator.data else {}
             value = values.get(self._position_uid, 0)
-            return int(value)
+            try:
+                # Convert string to float first, then to int for position
+                numeric_value = float(value) if isinstance(value, str) else value
+                return int(numeric_value)
+            except (ValueError, TypeError):
+                return 0
         return None
 
     @property
@@ -105,7 +110,12 @@ class GiraX1Cover(GiraX1Entity, CoverEntity):
         if self._slat_position_uid:
             values = self.coordinator.data.get("values", {}) if self.coordinator.data else {}
             value = values.get(self._slat_position_uid, 0)
-            return int(value)
+            try:
+                # Convert string to float first, then to int for tilt position
+                numeric_value = float(value) if isinstance(value, str) else value
+                return int(numeric_value)
+            except (ValueError, TypeError):
+                return 0
         return None
 
     @property
