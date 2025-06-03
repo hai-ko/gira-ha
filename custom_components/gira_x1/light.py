@@ -28,25 +28,80 @@ async def async_setup_entry(
     async_add_entities: AddEntitiesCallback,
 ) -> None:
     """Set up Gira X1 lights from a config entry."""
+    _LOGGER.info("Setting up Gira X1 light platform")
     coordinator: GiraX1DataUpdateCoordinator = hass.data[DOMAIN][config_entry.entry_id]
 
     entities = []
     
+    # Log coordinator data for debugging
+    if not coordinator.data:
+        _LOGGER.warning("No coordinator data available for light setup")
+        return
+    
     # Get all functions that are lights from the UI config
     functions = coordinator.data.get("functions", {}) if coordinator.data else {}
+    _LOGGER.info("Found %d total functions for light platform", len(functions))
+    
+    # Log the mappings we're using
+    _LOGGER.info("Light mappings - GIRA_FUNCTION_TYPES: %s", {k: v for k, v in GIRA_FUNCTION_TYPES.items() if v == DEVICE_TYPE_LIGHT})
+    _LOGGER.info("Light mappings - GIRA_CHANNEL_TYPES: %s", {k: v for k, v in GIRA_CHANNEL_TYPES.items() if v == DEVICE_TYPE_LIGHT})
+    
+    # Log all function types found in the data for mapping analysis
+    all_function_types = set()
+    all_channel_types = set()
     for function in functions.values():
+        func_type = function.get("functionType", "")
+        chan_type = function.get("channelType", "")
+        if func_type:
+            all_function_types.add(func_type)
+        if chan_type:
+            all_channel_types.add(chan_type)
+    
+    _LOGGER.info("ALL function types found in device data: %s", sorted(all_function_types))
+    _LOGGER.info("ALL channel types found in device data: %s", sorted(all_channel_types))
+    
+    # Check which types are not mapped for lights
+    unmapped_function_types = all_function_types - set(GIRA_FUNCTION_TYPES.keys())
+    unmapped_channel_types = all_channel_types - set(GIRA_CHANNEL_TYPES.keys())
+    
+    if unmapped_function_types:
+        _LOGGER.warning("UNMAPPED function types found (consider adding to const.py): %s", sorted(unmapped_function_types))
+    if unmapped_channel_types:
+        _LOGGER.warning("UNMAPPED channel types found (consider adding to const.py): %s", sorted(unmapped_channel_types))
+    
+    light_count = 0
+    for function_uid, function in functions.items():
         function_type = function.get("functionType", "")
         channel_type = function.get("channelType", "")
+        display_name = function.get("displayName", "Unknown")
+        
+        # Log every function for debugging
+        _LOGGER.debug("Function %s: %s (function_type: %s, channel_type: %s)", 
+                     function_uid, display_name, function_type, channel_type)
         
         # Check if this function should be a light entity
         # Allow Switch functions to be lights if they have dimming capability or specific channel types
-        if (GIRA_FUNCTION_TYPES.get(function_type) == DEVICE_TYPE_LIGHT or
-            GIRA_CHANNEL_TYPES.get(channel_type) == DEVICE_TYPE_LIGHT or
-            (function_type == "de.gira.schema.functions.Switch" and 
-             channel_type == "de.gira.schema.channels.KNX.Dimmer")):
+        is_light_function = GIRA_FUNCTION_TYPES.get(function_type) == DEVICE_TYPE_LIGHT
+        is_light_channel = GIRA_CHANNEL_TYPES.get(channel_type) == DEVICE_TYPE_LIGHT
+        is_dimmer_switch = (function_type == "de.gira.schema.functions.Switch" and 
+                           channel_type == "de.gira.schema.channels.KNX.Dimmer")
+        
+        if is_light_function or is_light_channel or is_dimmer_switch:
+            _LOGGER.info("Adding light entity: %s (%s) - %s/%s", 
+                        display_name, function_uid, function_type, channel_type)
             entities.append(GiraX1Light(coordinator, function))
-
-    async_add_entities(entities)
+            light_count += 1
+        elif function_type or channel_type:
+            # Log non-matching functions to help identify missing mappings
+            _LOGGER.debug("Function %s not mapped as light - type: %s, channel: %s", 
+                         function_uid, function_type, channel_type)
+    
+    _LOGGER.info("Light platform setup complete: %d light entities created", light_count)
+    
+    if entities:
+        async_add_entities(entities)
+    else:
+        _LOGGER.warning("No light entities found! Check function types in coordinator data and GIRA_FUNCTION_TYPES mapping")
 
 
 class GiraX1Light(GiraX1Entity, LightEntity):

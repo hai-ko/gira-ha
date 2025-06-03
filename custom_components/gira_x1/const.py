@@ -27,7 +27,7 @@ API_BASE_PATH: Final = "/api/v2"
 API_CLIENTS: Final = f"{API_BASE_PATH}/clients"
 API_UICONFIG: Final = f"{API_BASE_PATH}/uiconfig"
 API_UICONFIG_UID: Final = f"{API_BASE_PATH}/uiconfig/uid"
-API_VALUES: Final = f"{API_BASE_PATH}/values"
+API_VALUES: Final = "/api/values"  # Values endpoint is unversioned and requires /{datapoint_id}
 API_LICENSES: Final = f"{API_BASE_PATH}/licenses"
 
 # Device types

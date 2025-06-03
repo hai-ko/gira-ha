@@ -321,23 +321,70 @@ class GiraX1Client:
         """Get current values from the Gira X1.
         
         Args:
-            uid: Optional UID to get specific datapoint or function values.
-                 If None, gets all values.
+            uid: Optional UID to get specific datapoint value.
+                 If None, gets values for all known datapoints from UI config.
         """
-        endpoint = API_VALUES
         if uid:
-            endpoint += f"/{uid}"
-        
-        response = await self._make_request_with_retry("GET", endpoint)
-        
-        # The API returns values in a "values" array, convert to dict for easier access
-        values_list = response.get("values", [])
-        values_dict = {}
-        for value_item in values_list:
-            if "uid" in value_item and "value" in value_item:
-                values_dict[value_item["uid"]] = value_item["value"]
-        
-        return values_dict
+            # Get value for specific datapoint
+            endpoint = f"{API_VALUES}/{uid}"
+            response = await self._make_request_with_retry("GET", endpoint)
+            
+            # The API returns values in a "values" array, convert to dict for easier access
+            values_list = response.get("values", [])
+            values_dict = {}
+            for value_item in values_list:
+                if "uid" in value_item and "value" in value_item:
+                    values_dict[value_item["uid"]] = value_item["value"]
+            
+            return values_dict
+        else:
+            # Get values for all datapoints from UI config
+            _LOGGER.debug("Getting values for all datapoints from UI config...")
+            
+            # First get UI config to find all datapoint IDs
+            ui_config = await self.get_ui_config()
+            all_datapoint_ids = set()
+            
+            # Extract all datapoint UIDs from functions
+            for function in ui_config.get("functions", []):
+                for datapoint in function.get("dataPoints", []):
+                    dp_uid = datapoint.get("uid")
+                    if dp_uid:
+                        all_datapoint_ids.add(dp_uid)
+            
+            _LOGGER.debug(f"Found {len(all_datapoint_ids)} datapoints to fetch values for")
+            
+            # Fetch values for each datapoint individually
+            all_values = {}
+            successful_fetches = 0
+            failed_fetches = 0
+            
+            for dp_uid in all_datapoint_ids:
+                try:
+                    endpoint = f"{API_VALUES}/{dp_uid}"
+                    response = await self._make_request_with_retry("GET", endpoint)
+                    
+                    # Extract value from response
+                    values_list = response.get("values", [])
+                    for value_item in values_list:
+                        if value_item.get("uid") == dp_uid and "value" in value_item:
+                            all_values[dp_uid] = value_item["value"]
+                            successful_fetches += 1
+                            break
+                            
+                except GiraX1ApiError as e:
+                    # Some datapoints may not be readable (read flag not set)
+                    if "read flag not set" in str(e):
+                        _LOGGER.debug(f"Datapoint {dp_uid} not readable (read flag not set)")
+                    else:
+                        _LOGGER.warning(f"Failed to get value for datapoint {dp_uid}: {e}")
+                    failed_fetches += 1
+                except Exception as e:
+                    _LOGGER.warning(f"Unexpected error getting value for datapoint {dp_uid}: {e}")
+                    failed_fetches += 1
+            
+            _LOGGER.debug(f"Successfully fetched {successful_fetches} values, {failed_fetches} failed")
+            return all_values
 
     async def get_device_value(self, device_id: str) -> Any:
         """Get the current value for a specific device/datapoint."""
@@ -356,24 +403,27 @@ class GiraX1Client:
             return False
 
     async def set_multiple_values(self, values: Dict[str, Any]) -> bool:
-        """Set multiple values at once.
+        """Set multiple values by calling the individual endpoints.
         
         Args:
             values: Dictionary mapping device UIDs to their new values
         """
-        # Convert dict to the API format
-        values_list = [
-            {"uid": uid, "value": value}
-            for uid, value in values.items()
-        ]
-        data = {"values": values_list}
+        success_count = 0
+        total_count = len(values)
         
-        try:
-            await self._make_request_with_retry("PUT", API_VALUES, data)
-            return True
-        except GiraX1ApiError as err:
-            _LOGGER.error("Failed to set multiple device values: %s", err)
-            return False
+        for uid, value in values.items():
+            try:
+                if await self.set_device_value(uid, value):
+                    success_count += 1
+            except Exception as e:
+                _LOGGER.warning(f"Failed to set value for {uid}: {e}")
+        
+        _LOGGER.debug(f"Set {success_count}/{total_count} values successfully")
+        return success_count == total_count
+
+    async def set_value(self, datapoint_id: str, value: Any) -> bool:
+        """Set a value for a datapoint (alias for set_device_value for service compatibility)."""
+        return await self.set_device_value(datapoint_id, value)
 
     async def test_connection(self) -> bool:
         """Test if the connection to Gira X1 is working."""

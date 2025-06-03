@@ -23,22 +23,79 @@ async def async_setup_entry(
     async_add_entities: AddEntitiesCallback,
 ) -> None:
     """Set up Gira X1 switches from a config entry."""
+    _LOGGER.info("Setting up Gira X1 switch platform")
     coordinator: GiraX1DataUpdateCoordinator = hass.data[DOMAIN][config_entry.entry_id]
 
     entities = []
     
+    # Log coordinator data for debugging
+    if not coordinator.data:
+        _LOGGER.warning("No coordinator data available for switch setup")
+        return
+    
+    _LOGGER.info("Coordinator data keys: %s", list(coordinator.data.keys()))
+    
     # Get all functions that are switches from the UI config
     functions = coordinator.data.get("functions", {}) if coordinator.data else {}
+    _LOGGER.info("Found %d total functions in coordinator data", len(functions))
+    
+    # Log the mappings we're using
+    _LOGGER.info("Switch mappings - GIRA_FUNCTION_TYPES: %s", {k: v for k, v in GIRA_FUNCTION_TYPES.items() if v == DEVICE_TYPE_SWITCH})
+    _LOGGER.info("Switch mappings - GIRA_CHANNEL_TYPES: %s", {k: v for k, v in GIRA_CHANNEL_TYPES.items() if v == DEVICE_TYPE_SWITCH})
+    
+    # Log all function types found in the data for mapping analysis
+    all_function_types = set()
+    all_channel_types = set()
     for function in functions.values():
+        func_type = function.get("functionType", "")
+        chan_type = function.get("channelType", "")
+        if func_type:
+            all_function_types.add(func_type)
+        if chan_type:
+            all_channel_types.add(chan_type)
+    
+    _LOGGER.info("ALL function types found in device data: %s", sorted(all_function_types))
+    _LOGGER.info("ALL channel types found in device data: %s", sorted(all_channel_types))
+    
+    # Check which types are not mapped
+    unmapped_function_types = all_function_types - set(GIRA_FUNCTION_TYPES.keys())
+    unmapped_channel_types = all_channel_types - set(GIRA_CHANNEL_TYPES.keys())
+    
+    if unmapped_function_types:
+        _LOGGER.warning("UNMAPPED function types found (consider adding to const.py): %s", sorted(unmapped_function_types))
+    if unmapped_channel_types:
+        _LOGGER.warning("UNMAPPED channel types found (consider adding to const.py): %s", sorted(unmapped_channel_types))
+    
+    switch_count = 0
+    for function_uid, function in functions.items():
         function_type = function.get("functionType", "")
         channel_type = function.get("channelType", "")
+        display_name = function.get("displayName", "Unknown")
+        
+        # Log every function for debugging
+        _LOGGER.debug("Function %s: %s (type: %s, channel: %s)", 
+                     function_uid, display_name, function_type, channel_type)
         
         # Check if this function should be a switch entity
-        if (GIRA_FUNCTION_TYPES.get(function_type) == DEVICE_TYPE_SWITCH or
-            GIRA_CHANNEL_TYPES.get(channel_type) == DEVICE_TYPE_SWITCH):
+        is_switch_function = GIRA_FUNCTION_TYPES.get(function_type) == DEVICE_TYPE_SWITCH
+        is_switch_channel = GIRA_CHANNEL_TYPES.get(channel_type) == DEVICE_TYPE_SWITCH
+        
+        if is_switch_function or is_switch_channel:
+            _LOGGER.info("Adding switch entity: %s (%s) - %s", 
+                        display_name, function_uid, function_type)
             entities.append(GiraX1Switch(coordinator, function))
-
-    async_add_entities(entities)
+            switch_count += 1
+        elif function_type or channel_type:
+            # Log non-matching functions to help identify missing mappings
+            _LOGGER.debug("Function %s not mapped as switch - type: %s, channel: %s", 
+                         function_uid, function_type, channel_type)
+    
+    _LOGGER.info("Switch platform setup complete: %d switch entities created", switch_count)
+    
+    if entities:
+        async_add_entities(entities)
+    else:
+        _LOGGER.warning("No switch entities found! Check function types in coordinator data and GIRA_FUNCTION_TYPES mapping")
 
 
 class GiraX1Switch(GiraX1Entity, SwitchEntity):
