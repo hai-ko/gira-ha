@@ -6,7 +6,7 @@ import logging
 import socket
 import subprocess
 import platform
-from datetime import timedelta
+from datetime import timedelta, datetime
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_HOST, CONF_PASSWORD, CONF_PORT, CONF_USERNAME, Platform
@@ -252,14 +252,16 @@ class GiraX1DataUpdateCoordinator(DataUpdateCoordinator):
             
             if success:
                 self.callbacks_enabled = True
-                # Use longer polling interval as fallback when callbacks are active
-                self.update_interval = timedelta(seconds=CALLBACK_UPDATE_INTERVAL_SECONDS)
-                _LOGGER.info("Callbacks enabled, using %d second fallback polling", 
-                           CALLBACK_UPDATE_INTERVAL_SECONDS)
+                # Even with callbacks, use 5-second polling to ensure external changes are detected
+                # Callbacks may fail silently or miss updates, so we rely on polling as primary method
+                self.update_interval = timedelta(seconds=UPDATE_INTERVAL_SECONDS)
+                _LOGGER.info("Callbacks registered successfully, but still using %d second polling for reliability", 
+                           UPDATE_INTERVAL_SECONDS)
                 return True
             else:
                 _LOGGER.warning("Failed to register callbacks, using default 5-second polling")
                 # Use default 5-second polling when callbacks fail
+                self.callbacks_enabled = False
                 self.update_interval = timedelta(seconds=UPDATE_INTERVAL_SECONDS)
                 return False
                 
@@ -267,6 +269,7 @@ class GiraX1DataUpdateCoordinator(DataUpdateCoordinator):
             _LOGGER.error("Error setting up callbacks: %s", err, exc_info=True)
             # Use default 5-second polling when callback setup fails
             _LOGGER.warning("Callback setup failed, using default 5-second polling")
+            self.callbacks_enabled = False
             self.update_interval = timedelta(seconds=UPDATE_INTERVAL_SECONDS)
             return False
 
@@ -288,10 +291,11 @@ class GiraX1DataUpdateCoordinator(DataUpdateCoordinator):
     async def _async_update_data(self):
         """Update data via library."""
         try:
+            current_time = datetime.now().strftime("%H:%M:%S")
             if self.callbacks_enabled:
-                _LOGGER.debug("Starting fallback data update cycle (callbacks enabled)")
+                _LOGGER.debug("[%s] Starting data update cycle (callbacks registered, but polling for reliability)", current_time)
             else:
-                _LOGGER.debug("Starting data update cycle (polling mode)")
+                _LOGGER.debug("[%s] Starting data update cycle (polling mode)", current_time)
             
             # Check if UI config has changed
             current_uid = await self.client.get_ui_config_uid()
@@ -345,16 +349,21 @@ class GiraX1DataUpdateCoordinator(DataUpdateCoordinator):
                         _LOGGER.warning("Failed to re-register callbacks: %s", err)
             
             # Get current values for all data points using individual polling (no batch endpoint)
-            if not self.callbacks_enabled:
-                # Only fetch values via API in polling mode - individual datapoint requests
-                # In callback mode, values are updated via webhooks
-                _LOGGER.debug("Fetching current values from device using individual datapoint polling...")
+            # ALWAYS poll for values to ensure external changes are detected
+            # Callbacks are unreliable and may fail silently, so we use polling as the primary method
+            _LOGGER.debug("Fetching current values from device using individual datapoint polling...")
+            try:
                 values = await self.client.get_values()
-                _LOGGER.debug("Received %d values from device via individual polling", len(values) if values else 0)
-            else:
-                # In callback mode, preserve existing values (updated via webhooks)
+                _LOGGER.debug("Successfully received %d values from device via polling", len(values) if values else 0)
+                
+                # Cache values for potential future use
+                self._last_values = values
+                
+            except Exception as poll_error:
+                _LOGGER.warning("Failed to poll for values: %s", poll_error)
+                # Fall back to cached values if polling fails
                 values = getattr(self, '_last_values', {})
-                _LOGGER.debug("Using cached values in callback mode (%d values)", len(values))
+                _LOGGER.debug("Using cached values due to polling failure (%d values)", len(values))
 
             data = {
                 "values": values,
