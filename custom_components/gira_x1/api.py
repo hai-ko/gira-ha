@@ -275,6 +275,18 @@ class GiraX1Client:
                             
                             if retry_response.status == 204:  # No Content
                                 return {}
+                            
+                            # Check content type before trying to parse JSON
+                            content_type = retry_response.headers.get('content-type', '').lower()
+                            if 'application/json' not in content_type:
+                                response_text = await retry_response.text()
+                                _LOGGER.warning("Unexpected content type '%s' for endpoint %s after retry. Response: %s", 
+                                              content_type, endpoint, response_text[:200])
+                                # For some Gira X1 APIs that return non-JSON success responses
+                                if retry_response.status in [STATUS_OK, 201]:
+                                    return {"success": True, "raw_response": response_text}
+                                raise GiraX1ApiError(f"Unexpected content type: {content_type}")
+                            
                             return await retry_response.json()
                     
                     elif response.status not in [STATUS_OK, 201, 204]:
@@ -283,6 +295,18 @@ class GiraX1Client:
                     
                     if response.status == 204:  # No Content
                         return {}
+                    
+                    # Check content type before trying to parse JSON
+                    content_type = response.headers.get('content-type', '').lower()
+                    if 'application/json' not in content_type:
+                        response_text = await response.text()
+                        _LOGGER.warning("Unexpected content type '%s' for endpoint %s. Response: %s", 
+                                      content_type, endpoint, response_text[:200])
+                        # For some Gira X1 APIs that return non-JSON success responses
+                        if response.status in [STATUS_OK, 201]:
+                            return {"success": True, "raw_response": response_text}
+                        raise GiraX1ApiError(f"Unexpected content type: {content_type}")
+                    
                     return await response.json()
 
         except asyncio.TimeoutError as err:
@@ -374,9 +398,10 @@ class GiraX1Client:
                             break
                             
                 except GiraX1ApiError as e:
-                    # Some datapoints may not be readable (read flag not set)
-                    if "read flag not set" in str(e):
-                        _LOGGER.debug(f"Datapoint {dp_uid} not readable (read flag not set)")
+                    # Some datapoints may not be readable or available
+                    error_msg = str(e).lower()
+                    if any(x in error_msg for x in ["read flag not set", "get value failed", "500"]):
+                        _LOGGER.debug(f"Datapoint {dp_uid} not available or readable: {e}")
                     else:
                         _LOGGER.warning(f"Failed to get value for datapoint {dp_uid}: {e}")
                     failed_fetches += 1

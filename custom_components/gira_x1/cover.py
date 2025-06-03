@@ -80,7 +80,7 @@ class GiraX1Cover(GiraX1Entity, CoverEntity):
     def device_info(self):
         """Return device information."""
         return {
-            "identifiers": {(DOMAIN, self._func_id)},
+            "identifiers": {(DOMAIN, self._function["uid"])},
             "name": self._attr_name,
             "manufacturer": "Gira",
             "model": "X1",

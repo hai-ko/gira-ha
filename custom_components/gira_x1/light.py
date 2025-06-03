@@ -134,7 +134,7 @@ class GiraX1Light(GiraX1Entity, LightEntity):
     def device_info(self):
         """Return device information."""
         return {
-            "identifiers": {(DOMAIN, self._func_id)},
+            "identifiers": {(DOMAIN, self._function["uid"])},
             "name": self._attr_name,
             "manufacturer": "Gira",
             "model": "X1",
@@ -180,7 +180,7 @@ class GiraX1Light(GiraX1Entity, LightEntity):
             # No OnOff, set brightness to 100%
             await self.coordinator.api.set_value(self._brightness_uid, 100)
         else:
-            _LOGGER.warning("No suitable data point found for turning on light %s", self._func_id)
+            _LOGGER.warning("No suitable data point found for turning on light %s", self._function["uid"])
             return
 
         await self.coordinator.async_request_refresh()
@@ -194,7 +194,7 @@ class GiraX1Light(GiraX1Entity, LightEntity):
             # Use brightness data point
             await self.coordinator.api.set_value(self._brightness_uid, 0)
         else:
-            _LOGGER.warning("No suitable data point found for turning off light %s", self._func_id)
+            _LOGGER.warning("No suitable data point found for turning off light %s", self._function["uid"])
             return
             
         await self.coordinator.async_request_refresh()

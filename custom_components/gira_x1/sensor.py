@@ -66,6 +66,9 @@ class GiraX1Sensor(GiraX1Entity, SensorEntity):
         """Initialize the sensor."""
         super().__init__(coordinator, function)
         
+        # Find data points for this function
+        self._data_points = {dp["name"]: dp["uid"] for dp in function.get("dataPoints", [])}
+        
         # Find the specific data point for this sensor
         if data_point_name:
             self._data_point_name = data_point_name
@@ -101,7 +104,7 @@ class GiraX1TemperatureSensor(GiraX1Sensor):
         self._attr_device_class = SensorDeviceClass.TEMPERATURE
         self._attr_native_unit_of_measurement = UnitOfTemperature.CELSIUS
         self._attr_state_class = SensorStateClass.MEASUREMENT
-        self._attr_unique_id = f"gira_x1_temperature_{self._func_id}"
+        self._attr_unique_id = f"gira_x1_temperature_{self._function['uid']}"
 
 
 class GiraX1HumiditySensor(GiraX1Sensor):
@@ -117,7 +120,7 @@ class GiraX1HumiditySensor(GiraX1Sensor):
         self._attr_device_class = SensorDeviceClass.HUMIDITY
         self._attr_native_unit_of_measurement = PERCENTAGE
         self._attr_state_class = SensorStateClass.MEASUREMENT
-        self._attr_unique_id = f"gira_x1_humidity_{self._func_id}"
+        self._attr_unique_id = f"gira_x1_humidity_{self._function['uid']}"
 
 
 class GiraX1AudioSensor(GiraX1Sensor):
@@ -133,7 +136,7 @@ class GiraX1AudioSensor(GiraX1Sensor):
         super().__init__(coordinator, function, "Volume")
         self._attr_native_unit_of_measurement = PERCENTAGE
         self._attr_state_class = SensorStateClass.MEASUREMENT
-        self._attr_unique_id = f"gira_x1_audio_{self._func_id}"
+        self._attr_unique_id = f"gira_x1_audio_{self._function['uid']}"
         
         # Update name to be more specific
         self._attr_name = f"{function.get('displayName', 'Audio')} Volume"
@@ -150,4 +153,4 @@ class GiraX1GenericSensor(GiraX1Sensor):
         """Initialize the generic sensor."""
         super().__init__(coordinator, function)
         self._attr_state_class = SensorStateClass.MEASUREMENT
-        self._attr_unique_id = f"gira_x1_generic_{self._func_id}"
+        self._attr_unique_id = f"gira_x1_generic_{self._function['uid']}"

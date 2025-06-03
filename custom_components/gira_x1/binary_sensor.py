@@ -66,6 +66,9 @@ class GiraX1BinarySensor(GiraX1Entity, BinarySensorEntity):
         """Initialize the binary sensor."""
         super().__init__(coordinator, function)
         
+        # Find data points for this function
+        self._data_points = {dp["name"]: dp["uid"] for dp in function.get("dataPoints", [])}
+        
         # Find the specific data point for this binary sensor
         if data_point_name:
             self._data_point_name = data_point_name
@@ -100,7 +103,7 @@ class GiraX1MotionSensor(GiraX1BinarySensor):
         """Initialize the motion sensor."""
         super().__init__(coordinator, function, "Motion")
         self._attr_device_class = BinarySensorDeviceClass.MOTION
-        self._attr_unique_id = f"gira_x1_motion_{self._func_id}"
+        self._attr_unique_id = f"gira_x1_motion_{self._function['uid']}"
 
 
 class GiraX1PresenceSensor(GiraX1BinarySensor):
@@ -114,7 +117,7 @@ class GiraX1PresenceSensor(GiraX1BinarySensor):
         """Initialize the presence sensor."""
         super().__init__(coordinator, function, "Presence")
         self._attr_device_class = BinarySensorDeviceClass.OCCUPANCY
-        self._attr_unique_id = f"gira_x1_presence_{self._func_id}"
+        self._attr_unique_id = f"gira_x1_presence_{self._function['uid']}"
 
 
 class GiraX1DoorSensor(GiraX1BinarySensor):
@@ -128,7 +131,7 @@ class GiraX1DoorSensor(GiraX1BinarySensor):
         """Initialize the door sensor."""
         super().__init__(coordinator, function, "Status")
         self._attr_device_class = BinarySensorDeviceClass.DOOR
-        self._attr_unique_id = f"gira_x1_door_{self._func_id}"
+        self._attr_unique_id = f"gira_x1_door_{self._function['uid']}"
 
 
 class GiraX1WindowSensor(GiraX1BinarySensor):
@@ -142,7 +145,7 @@ class GiraX1WindowSensor(GiraX1BinarySensor):
         """Initialize the window sensor."""
         super().__init__(coordinator, function, "Status")
         self._attr_device_class = BinarySensorDeviceClass.WINDOW
-        self._attr_unique_id = f"gira_x1_window_{self._func_id}"
+        self._attr_unique_id = f"gira_x1_window_{self._function['uid']}"
 
 
 class GiraX1GenericBinarySensor(GiraX1BinarySensor):
@@ -155,4 +158,4 @@ class GiraX1GenericBinarySensor(GiraX1BinarySensor):
     ) -> None:
         """Initialize the generic binary sensor."""
         super().__init__(coordinator, function)
-        self._attr_unique_id = f"gira_x1_generic_binary_{self._func_id}"
+        self._attr_unique_id = f"gira_x1_generic_binary_{self._function['uid']}"

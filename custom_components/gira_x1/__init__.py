@@ -216,6 +216,11 @@ class GiraX1DataUpdateCoordinator(DataUpdateCoordinator):
                 _LOGGER.warning("No URL available for callbacks, using polling")
                 return False
 
+            # Gira X1 requires HTTPS for callbacks - force HTTPS if URL is HTTP
+            if external_url.startswith("http://"):
+                external_url = external_url.replace("http://", "https://")
+                _LOGGER.info("Converted callback URL to HTTPS as required by Gira X1: %s", external_url)
+
             # Register webhook handlers
             self._webhook_handlers = register_webhook_handlers(self.hass, self)
             
