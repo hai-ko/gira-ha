@@ -20,6 +20,7 @@ from .api import GiraX1ApiError, GiraX1Client
 from .const import (
     DOMAIN, 
     UPDATE_INTERVAL_SECONDS,
+    FAST_UPDATE_INTERVAL_SECONDS,
     CALLBACK_UPDATE_INTERVAL_SECONDS,
     WEBHOOK_VALUE_CALLBACK_PATH,
     WEBHOOK_SERVICE_CALLBACK_PATH,
@@ -82,10 +83,12 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     
     # Set up callback system
     _LOGGER.info("Setting up callback system...")
-    try:
-        await coordinator.setup_callbacks()
-    except Exception as err:
-        _LOGGER.warning("Failed to setup callbacks, falling back to polling: %s", err)
+    callback_success = await coordinator.setup_callbacks()
+    
+    if callback_success:
+        _LOGGER.info("Callback system enabled - real-time updates active")
+    else:
+        _LOGGER.info("Callback system failed - using fast polling (5 seconds)")
     
     # Log initial data summary
     if coordinator.data:
@@ -254,11 +257,16 @@ class GiraX1DataUpdateCoordinator(DataUpdateCoordinator):
                            CALLBACK_UPDATE_INTERVAL_SECONDS)
                 return True
             else:
-                _LOGGER.warning("Failed to register callbacks, using standard polling")
+                _LOGGER.warning("Failed to register callbacks, using fast polling (5 seconds)")
+                # Use fast polling when callbacks fail
+                self.update_interval = timedelta(seconds=FAST_UPDATE_INTERVAL_SECONDS)
                 return False
                 
         except Exception as err:
             _LOGGER.error("Error setting up callbacks: %s", err, exc_info=True)
+            # Use fast polling when callback setup fails
+            _LOGGER.warning("Callback setup failed, using fast polling (5 seconds)")
+            self.update_interval = timedelta(seconds=FAST_UPDATE_INTERVAL_SECONDS)
             return False
 
     async def cleanup_callbacks(self) -> None:
