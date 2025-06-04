@@ -247,6 +247,26 @@ class GiraX1DataUpdateCoordinator(DataUpdateCoordinator):
                 values = await self.client.get_values()
                 _LOGGER.debug("Successfully received %d values from device via polling", len(values) if values else 0)
                 
+                # Log polled state changes
+                if hasattr(self, '_last_values') and self._last_values:
+                    changes_detected = 0
+                    for uid, new_value in values.items():
+                        old_value = self._last_values.get(uid)
+                        if old_value != new_value:
+                            _LOGGER.info("🔄 POLLED STATE CHANGE: %s: '%s' → '%s'", uid, old_value, new_value)
+                            changes_detected += 1
+                    
+                    if changes_detected == 0:
+                        _LOGGER.debug("No state changes detected in polling cycle")
+                    else:
+                        _LOGGER.info("📊 Total polled state changes: %d", changes_detected)
+                else:
+                    _LOGGER.info("📊 Initial polling cycle - received %d datapoint values", len(values))
+                    # Log first few values for debugging
+                    sample_values = list(values.items())[:5]
+                    for uid, value in sample_values:
+                        _LOGGER.debug("Initial value: %s = '%s'", uid, value)
+                
                 # Cache values for potential future use
                 self._last_values = values
                 
@@ -255,6 +275,8 @@ class GiraX1DataUpdateCoordinator(DataUpdateCoordinator):
                 # Fall back to cached values if polling fails
                 values = getattr(self, '_last_values', {})
                 _LOGGER.debug("Using cached values due to polling failure (%d values)", len(values))
+                if not values:
+                    _LOGGER.warning("No cached values available after polling failure")
 
             data = {
                 "values": values,
@@ -262,9 +284,6 @@ class GiraX1DataUpdateCoordinator(DataUpdateCoordinator):
                 "functions": self.functions,
                 "ui_config_uid": self.ui_config_uid,
             }
-            
-            # Cache values for callback mode
-            self._last_values = values
             
             _LOGGER.debug("Data update completed successfully")
             return data
