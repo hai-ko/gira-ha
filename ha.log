@@ -1,0 +1,185 @@
+2025-06-04 15:18:23.870 INFO (MainThread) [custom_components.gira_x1] 📊 Initial polling cycle - received 259 datapoint values
+2025-06-04 15:18:23.871 INFO (MainThread) [custom_components.gira_x1] Integration configured for pure polling mode with 5 second intervals
+2025-06-04 15:18:23.871 INFO (MainThread) [custom_components.gira_x1] Initial data fetch successful. Data keys: ['values', 'ui_config', 'functions', 'ui_config_uid']
+2025-06-04 15:18:23.871 INFO (MainThread) [custom_components.gira_x1] Found 180 functions and 259 values
+2025-06-04 15:18:23.871 INFO (MainThread) [custom_components.gira_x1] Function types found: {'de.gira.schema.functions.Switch': 86, 'de.gira.schema.functions.Covering': 42, 'de.gira.schema.functions.KNX.Light': 30, 'de.gira.schema.functions.KNX.HeatingCooling': 21, 'de.gira.schema.functions.Trigger': 1}
+2025-06-04 15:18:23.871 INFO (MainThread) [custom_components.gira_x1] Channel types found: {'de.gira.schema.channels.Switch': 86, 'de.gira.schema.channels.BlindWithPos': 42, 'de.gira.schema.channels.KNX.Dimmer': 30, 'de.gira.schema.channels.KNX.HeatingCoolingSwitchable': 21, 'de.gira.schema.channels.Trigger': 1}
+2025-06-04 15:18:23.871 INFO (MainThread) [custom_components.gira_x1] Pure polling mode active
+2025-06-04 15:18:23.871 INFO (MainThread) [custom_components.gira_x1] Sample function 1: {'uid': 'a02t', 'displayName': 'Wandleuchten', 'functionType': 'de.gira.schema.functions.Switch', 'channelType': 'de.gira.schema.channels.Switch', 'dataPoints': ['OnOff']}
+2025-06-04 15:18:23.871 INFO (MainThread) [custom_components.gira_x1] Sample function 2: {'uid': 'a03b', 'displayName': 'Steckdose', 'functionType': 'de.gira.schema.functions.Switch', 'channelType': 'de.gira.schema.channels.Switch', 'dataPoints': ['OnOff']}
+2025-06-04 15:18:23.871 INFO (MainThread) [custom_components.gira_x1] Sample function 3: {'uid': 'a0b8', 'displayName': 'Zentral', 'functionType': 'de.gira.schema.functions.Covering', 'channelType': 'de.gira.schema.channels.BlindWithPos', 'dataPoints': ['Step-Up-Down', 'Up-Down']}
+2025-06-04 15:18:23.871 INFO (MainThread) [custom_components.gira_x1] Setting up platforms: [<Platform.LIGHT: 'light'>, <Platform.SWITCH: 'switch'>, <Platform.COVER: 'cover'>, <Platform.SENSOR: 'sensor'>, <Platform.BINARY_SENSOR: 'binary_sensor'>, <Platform.BUTTON: 'button'>, <Platform.CLIMATE: 'climate'>]
+2025-06-04 15:18:23.895 INFO (MainThread) [homeassistant.components.light] Setting up gira_x1.light
+2025-06-04 15:18:23.895 INFO (MainThread) [custom_components.gira_x1.light] Setting up Gira X1 light platform
+2025-06-04 15:18:23.895 INFO (MainThread) [custom_components.gira_x1.light] Found 180 total functions for light platform
+2025-06-04 15:18:23.895 INFO (MainThread) [custom_components.gira_x1.light] Light mappings - GIRA_FUNCTION_TYPES: {'de.gira.schema.functions.KNX.Light': 'light', 'de.gira.schema.functions.ColoredLight': 'light', 'de.gira.schema.functions.TunableLight': 'light'}
+2025-06-04 15:18:23.895 INFO (MainThread) [custom_components.gira_x1.light] Light mappings - GIRA_CHANNEL_TYPES: {'de.gira.schema.channels.KNX.Dimmer': 'light', 'de.gira.schema.channels.DimmerRGBW': 'light', 'de.gira.schema.channels.DimmerWhite': 'light'}
+2025-06-04 15:18:23.895 INFO (MainThread) [custom_components.gira_x1.light] ALL function types found in device data: ['de.gira.schema.functions.Covering', 'de.gira.schema.functions.KNX.HeatingCooling', 'de.gira.schema.functions.KNX.Light', 'de.gira.schema.functions.Switch', 'de.gira.schema.functions.Trigger']
+2025-06-04 15:18:23.895 INFO (MainThread) [custom_components.gira_x1.light] ALL channel types found in device data: ['de.gira.schema.channels.BlindWithPos', 'de.gira.schema.channels.KNX.Dimmer', 'de.gira.schema.channels.KNX.HeatingCoolingSwitchable', 'de.gira.schema.channels.Switch', 'de.gira.schema.channels.Trigger']
+2025-06-04 15:18:23.895 INFO (MainThread) [custom_components.gira_x1.light] Adding light entity: Deckenlicht (a008) - de.gira.schema.functions.KNX.Light/de.gira.schema.channels.KNX.Dimmer
+2025-06-04 15:18:23.895 INFO (MainThread) [custom_components.gira_x1.light] Adding light entity: Deckenlicht Durchgang (a004) - de.gira.schema.functions.KNX.Light/de.gira.schema.channels.KNX.Dimmer
+2025-06-04 15:18:23.895 INFO (MainThread) [custom_components.gira_x1.light] Adding light entity: Stromschiene 1 (a029) - de.gira.schema.functions.KNX.Light/de.gira.schema.channels.KNX.Dimmer
+2025-06-04 15:18:23.895 INFO (MainThread) [custom_components.gira_x1.light] Adding light entity: Stromschiene 2 (a02d) - de.gira.schema.functions.KNX.Light/de.gira.schema.channels.KNX.Dimmer
+2025-06-04 15:18:23.895 INFO (MainThread) [custom_components.gira_x1.light] Adding light entity: Stromschiene 3 (a02h) - de.gira.schema.functions.KNX.Light/de.gira.schema.channels.KNX.Dimmer
+2025-06-04 15:18:23.895 INFO (MainThread) [custom_components.gira_x1.light] Adding light entity: Unter Empore (a03p) - de.gira.schema.functions.KNX.Light/de.gira.schema.channels.KNX.Dimmer
+2025-06-04 15:18:23.895 INFO (MainThread) [custom_components.gira_x1.light] Adding light entity: Stromschiene 1 (a04d) - de.gira.schema.functions.KNX.Light/de.gira.schema.channels.KNX.Dimmer
+2025-06-04 15:18:23.895 INFO (MainThread) [custom_components.gira_x1.light] Adding light entity: Stromschiene 2 (a04h) - de.gira.schema.functions.KNX.Light/de.gira.schema.channels.KNX.Dimmer
+2025-06-04 15:18:23.895 INFO (MainThread) [custom_components.gira_x1.light] Adding light entity: Stromschiene 3 (a04l) - de.gira.schema.functions.KNX.Light/de.gira.schema.channels.KNX.Dimmer
+2025-06-04 15:18:23.895 INFO (MainThread) [custom_components.gira_x1.light] Adding light entity: Esstisch (a04p) - de.gira.schema.functions.KNX.Light/de.gira.schema.channels.KNX.Dimmer
+2025-06-04 15:18:23.896 INFO (MainThread) [custom_components.gira_x1.light] Adding light entity: Decke (a0bg) - de.gira.schema.functions.KNX.Light/de.gira.schema.channels.KNX.Dimmer
+2025-06-04 15:18:23.896 INFO (MainThread) [custom_components.gira_x1.light] Adding light entity: Deckenlicht (a04x) - de.gira.schema.functions.KNX.Light/de.gira.schema.channels.KNX.Dimmer
+2025-06-04 15:18:23.896 INFO (MainThread) [custom_components.gira_x1.light] Adding light entity: Laubengang (a04t) - de.gira.schema.functions.KNX.Light/de.gira.schema.channels.KNX.Dimmer
+2025-06-04 15:18:23.896 INFO (MainThread) [custom_components.gira_x1.light] Adding light entity: Eingang (a051) - de.gira.schema.functions.KNX.Light/de.gira.schema.channels.KNX.Dimmer
+2025-06-04 15:18:23.896 INFO (MainThread) [custom_components.gira_x1.light] Adding light entity: LED Band Teich (a0ac) - de.gira.schema.functions.KNX.Light/de.gira.schema.channels.KNX.Dimmer
+2025-06-04 15:18:23.896 INFO (MainThread) [custom_components.gira_x1.light] Adding light entity: Strahler Wasserfall (a0ag) - de.gira.schema.functions.KNX.Light/de.gira.schema.channels.KNX.Dimmer
+2025-06-04 15:18:23.896 INFO (MainThread) [custom_components.gira_x1.light] Adding light entity: LED Band (a0di) - de.gira.schema.functions.KNX.Light/de.gira.schema.channels.KNX.Dimmer
+2025-06-04 15:18:23.896 INFO (MainThread) [custom_components.gira_x1.light] Adding light entity: Tisch (a07l) - de.gira.schema.functions.KNX.Light/de.gira.schema.channels.KNX.Dimmer
+2025-06-04 15:18:23.896 INFO (MainThread) [custom_components.gira_x1.light] Adding light entity: LED Band (a07p) - de.gira.schema.functions.KNX.Light/de.gira.schema.channels.KNX.Dimmer
+2025-06-04 15:18:23.896 INFO (MainThread) [custom_components.gira_x1.light] Adding light entity: Leuchte 1 (a088) - de.gira.schema.functions.KNX.Light/de.gira.schema.channels.KNX.Dimmer
+2025-06-04 15:18:23.896 INFO (MainThread) [custom_components.gira_x1.light] Adding light entity: Leuchte 02 (a08c) - de.gira.schema.functions.KNX.Light/de.gira.schema.channels.KNX.Dimmer
+2025-06-04 15:18:23.896 INFO (MainThread) [custom_components.gira_x1.light] Adding light entity: Leuchte 03 (a08g) - de.gira.schema.functions.KNX.Light/de.gira.schema.channels.KNX.Dimmer
+2025-06-04 15:18:23.896 INFO (MainThread) [custom_components.gira_x1.light] Adding light entity: Leuchte 04 (a08k) - de.gira.schema.functions.KNX.Light/de.gira.schema.channels.KNX.Dimmer
+2025-06-04 15:18:23.896 INFO (MainThread) [custom_components.gira_x1.light] Adding light entity: Leuchte 05 (a08o) - de.gira.schema.functions.KNX.Light/de.gira.schema.channels.KNX.Dimmer
+2025-06-04 15:18:23.896 INFO (MainThread) [custom_components.gira_x1.light] Adding light entity: Leuchte 06 (a08s) - de.gira.schema.functions.KNX.Light/de.gira.schema.channels.KNX.Dimmer
+2025-06-04 15:18:23.896 INFO (MainThread) [custom_components.gira_x1.light] Adding light entity: LED Band (a08z) - de.gira.schema.functions.KNX.Light/de.gira.schema.channels.KNX.Dimmer
+2025-06-04 15:18:23.896 INFO (MainThread) [custom_components.gira_x1.light] Adding light entity: Kronleuchter (a0es) - de.gira.schema.functions.KNX.Light/de.gira.schema.channels.KNX.Dimmer
+2025-06-04 15:18:23.896 INFO (MainThread) [custom_components.gira_x1.light] Adding light entity: LED Band (a097) - de.gira.schema.functions.KNX.Light/de.gira.schema.channels.KNX.Dimmer
+2025-06-04 15:18:23.896 INFO (MainThread) [custom_components.gira_x1.light] Adding light entity: LED Band Teich (a0bd) - de.gira.schema.functions.KNX.Light/de.gira.schema.channels.KNX.Dimmer
+2025-06-04 15:18:23.896 INFO (MainThread) [custom_components.gira_x1.light] Adding light entity: Strahler Wasserfall (a0be) - de.gira.schema.functions.KNX.Light/de.gira.schema.channels.KNX.Dimmer
+2025-06-04 15:18:23.896 INFO (MainThread) [custom_components.gira_x1.light] Light platform setup complete: 30 light entities created
+2025-06-04 15:18:23.900 INFO (MainThread) [homeassistant.components.switch] Setting up gira_x1.switch
+2025-06-04 15:18:23.900 INFO (MainThread) [custom_components.gira_x1.switch] Setting up Gira X1 switch platform
+2025-06-04 15:18:23.900 INFO (MainThread) [custom_components.gira_x1.switch] Coordinator data keys: ['values', 'ui_config', 'functions', 'ui_config_uid']
+2025-06-04 15:18:23.900 INFO (MainThread) [custom_components.gira_x1.switch] Found 180 total functions in coordinator data
+2025-06-04 15:18:23.900 INFO (MainThread) [custom_components.gira_x1.switch] Switch mappings - GIRA_FUNCTION_TYPES: {'de.gira.schema.functions.Switch': 'switch', 'de.gira.schema.functions.PressAndHold': 'switch'}
+2025-06-04 15:18:23.900 INFO (MainThread) [custom_components.gira_x1.switch] Switch mappings - GIRA_CHANNEL_TYPES: {'de.gira.schema.channels.Switch': 'switch'}
+2025-06-04 15:18:23.901 INFO (MainThread) [custom_components.gira_x1.switch] ALL function types found in device data: ['de.gira.schema.functions.Covering', 'de.gira.schema.functions.KNX.HeatingCooling', 'de.gira.schema.functions.KNX.Light', 'de.gira.schema.functions.Switch', 'de.gira.schema.functions.Trigger']
+2025-06-04 15:18:23.901 INFO (MainThread) [custom_components.gira_x1.switch] ALL channel types found in device data: ['de.gira.schema.channels.BlindWithPos', 'de.gira.schema.channels.KNX.Dimmer', 'de.gira.schema.channels.KNX.HeatingCoolingSwitchable', 'de.gira.schema.channels.Switch', 'de.gira.schema.channels.Trigger']
+2025-06-04 15:18:23.901 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Wandleuchten (a02t) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.901 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Steckdose (a03b) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.901 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Wandleuchte/Steckdose (a06l) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.901 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Deckenlicht (a00c) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.901 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Deckenleuchte (a00e) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.901 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Spiegelleuchte (a00g) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.901 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Deckenlicht (a00r) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.901 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Deckenlicht (a012) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.901 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Deckenlicht (a01j) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.901 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Tresen (a06p) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.901 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Schrank Nord (a06q) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.901 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Schrank Ost (a06s) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.901 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Schrank (a078) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.901 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Kamin (a079) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.901 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Steckdose (a06u) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.901 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Decke (a0by) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.901 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Fenster (a0c0) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.901 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Spiegel (a0c2) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.901 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Deckenlicht (a055) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.901 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Durchgangsbeleuchtung (a057) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.901 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Deckenlicht (a05c) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.901 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Durchgang (a05e) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.901 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Licht Durchgang (a05g) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.901 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Licht vorne (a05i) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.901 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Licht hinten (a05k) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.901 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Licht (a05p) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.901 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Licht (a05v) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.901 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Wandleuchte (a03x) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.901 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Steckdose (a06y) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.901 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Laubengang (a03z) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.901 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Treppenaufgang (a0a8) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.901 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Zugang oben (a0aa) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.901 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Steckdose Ost (a06w) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.901 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Teich (a0bb) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.901 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Licht (a05r) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.901 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Steckdose (a05t) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.901 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Steckdose links (a0co) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.902 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Steckdose rechts (a0cq) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.902 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Decke (a0cs) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.902 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Schrank (a0cu) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.902 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Decke (a0d6) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.902 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Kronleuchter (a0d8) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.902 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Schamwand (a0da) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.902 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Waschtisch (a0dc) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.902 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Decke (a0de) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.902 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Stufe (a0dg) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.902 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Decke (a07f) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.902 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Stufe (a07h) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.902 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Wand (a07j) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.902 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Außen (a07d) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.902 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Treppe (a0dr) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.902 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Insel (a07w) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.903 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Arbeitsfläche (a07y) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.903 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Pendel (a080) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.903 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Kühlschrank (a082) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.903 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Flur (a084) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.903 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Durchgang (a086) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.903 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Wand (a093) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.903 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Schalter (a09b) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.903 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Decke (a0fj) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.903 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Schrank (a0fl) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.903 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Decke (a0fn) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.903 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Leuchte (a095) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.903 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Decke 1 (a0fq) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.903 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Decke 2 (a0fs) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.903 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Decke 1 (a0fz) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.903 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Decke 2 (a0g1) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.903 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Decke (a0g8) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.903 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Spiegel (a0ga) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.903 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Decke (a0gc) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.903 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Hobby (a0ge) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.903 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Stufe (a0gg) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.904 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Technik (a0gi) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.904 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Eingang (a0al) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.904 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Treppenaufgang (a0an) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.904 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Zugang oben (a0aq) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.904 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Teich (a0as) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.904 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Wand (a0au) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.904 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Steckdose (a0aw) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.904 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: LED Band (a0ay) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.904 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Steckdose (a0b0) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.904 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Decke (a0b2) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.904 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Ventil 1 - Weg Rechts (a0gm) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.904 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Ventil 2 - Kaminzimmer (a0go) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.904 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Ventil 3 (a0gq) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.904 INFO (MainThread) [custom_components.gira_x1.switch] Adding switch entity: Ventil 4 (a0gs) - de.gira.schema.functions.Switch
+2025-06-04 15:18:23.904 INFO (MainThread) [custom_components.gira_x1.switch] Switch platform setup complete: 86 switch entities created
+2025-06-04 15:18:23.917 INFO (MainThread) [homeassistant.components.cover] Setting up gira_x1.cover
+2025-06-04 15:18:23.923 INFO (MainThread) [homeassistant.components.sensor] Setting up gira_x1.sensor
+2025-06-04 15:18:23.923 INFO (MainThread) [homeassistant.components.binary_sensor] Setting up gira_x1.binary_sensor
+2025-06-04 15:18:23.923 INFO (MainThread) [homeassistant.components.button] Setting up gira_x1.button
+2025-06-04 15:18:23.924 INFO (MainThread) [homeassistant.components.climate] Setting up gira_x1.climate
+2025-06-04 15:18:23.928 INFO (MainThread) [custom_components.gira_x1] Platform setup completed
+2025-06-04 15:18:23.928 INFO (MainThread) [homeassistant.bootstrap] Home Assistant initialized in 93.53s
+2025-06-04 15:18:23.929 INFO (MainThread) [homeassistant.core] Starting Home Assistant
+2025-06-04 15:18:23.936 INFO (MainThread) [custom_components.hacs] Stage changed: startup
+2025-06-04 15:18:23.943 DEBUG (MainThread) [custom_components.hacs] There are 6 scheduled recurring tasks
+2025-06-04 15:18:23.943 INFO (MainThread) [custom_components.hacs] Loading removed repositories
+2025-06-04 15:18:24.042 INFO (MainThread) [custom_components.hacs] Loading known repositories
+2025-06-04 15:18:24.043 DEBUG (MainThread) [custom_components.hacs] Fetching updated content for plugin
+2025-06-04 15:18:24.044 DEBUG (MainThread) [custom_components.hacs] Fetching updated content for theme
+2025-06-04 15:18:24.045 DEBUG (MainThread) [custom_components.hacs] Fetching updated content for integration
+2025-06-04 15:18:24.045 DEBUG (MainThread) [custom_components.hacs] Fetching updated content for template
+2025-06-04 15:18:24.265 INFO (MainThread) [custom_components.hacs] Stage changed: running
+2025-06-04 15:18:24.300 DEBUG (MainThread) [custom_components.hacs] <QueueManager> The queue is empty
+2025-06-04 15:18:24.301 DEBUG (MainThread) [custom_components.hacs] <HACSStore async_save_to_store> Did not store data for 'hacs.critical'. Content did not change
+2025-06-04 15:18:24.301 DEBUG (MainThread) [custom_components.hacs] Nothing in the queue
+2025-06-04 15:18:24.311 INFO (SyncWorker_5) [homeassistant.loader] Loaded forked_daapd from homeassistant.components.forked_daapd
+2025-06-04 15:18:24.314 INFO (SyncWorker_1) [homeassistant.loader] Loaded home_connect from homeassistant.components.home_connect
+2025-06-04 15:18:24.316 INFO (MainThread) [homeassistant.components.automation.wasserfall_aus] Initialized trigger Wasserfall Aus
+2025-06-04 15:18:24.316 INFO (MainThread) [homeassistant.components.automation.wasserfall_an] Initialized trigger Wasserfall An
+2025-06-04 15:18:24.316 INFO (MainThread) [homeassistant.components.automation.filter_an] Initialized trigger Filter An
+2025-06-04 15:18:24.316 INFO (MainThread) [homeassistant.components.automation.neue_automation] Initialized trigger Neue Automation
+2025-06-04 15:18:24.317 INFO (MainThread) [homeassistant.components.automation.filter_an_bei_35] Initialized trigger Filter an vor 14 Uhr
+2025-06-04 15:18:24.317 INFO (MainThread) [homeassistant.components.automation.klimaanlage_an] Initialized trigger Klimaanlage An bei 25
+2025-06-04 15:18:24.317 INFO (MainThread) [homeassistant.components.automation.klimaanlage_aus_bei_93] Initialized trigger Klimaanlage Aus bei 93
+2025-06-04 15:18:24.317 INFO (MainThread) [homeassistant.components.automation.eingang_stufen] Initialized trigger Eingang Stufen
+2025-06-04 15:18:24.318 INFO (MainThread) [homeassistant.components.automation.ug_stufen] Initialized trigger UG Stufen
+2025-06-04 15:18:24.318 INFO (MainThread) [homeassistant.components.automation.og] Initialized trigger OG
+2025-06-04 15:18:24.318 INFO (MainThread) [homeassistant.components.automation.set_heater_temperature_via_rest] Initialized trigger Set Heater Temperature via REST
+2025-06-04 15:18:24.318 INFO (MainThread) [homeassistant.components.automation.keep_dummy_heater_switch_on] Initialized trigger Keep Dummy Heater Switch On
+2025-06-04 15:18:24.318 INFO (MainThread) [homeassistant.components.automation.bewasserung_1new_automation] Initialized trigger Bewässerung 1New automation
+2025-06-04 15:18:24.319 INFO (MainThread) [homeassistant.components.automation.weg_rechts] Initialized trigger Weg Rechts
+2025-06-04 15:18:24.319 INFO (MainThread) [homeassistant.components.automation.kaminzimmer_an] Initialized trigger Kaminzimmer An
+2025-06-04 15:18:24.319 INFO (MainThread) [homeassistant.components.automation.kaminzimmer_aus] Initialized trigger Kaminzimmer Aus
+2025-06-04 15:18:24.322 INFO (SyncWorker_3) [homeassistant.loader] Loaded ipp from homeassistant.components.ipp
+2025-06-04 15:18:24.345 INFO (SyncWorker_5) [homeassistant.loader] Loaded spotify from homeassistant.components.spotify
+2025-06-04 15:18:36.097 INFO (SyncWorker_0) [homeassistant.loader] Loaded qnap_qsw from homeassistant.components.qnap_qsw
