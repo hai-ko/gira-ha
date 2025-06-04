@@ -91,7 +91,9 @@ class GiraX1ValueCallbackView(HomeAssistantView):
             return web.Response(status=400, text="Invalid JSON")
         except Exception as err:
             _LOGGER.error("❌ VALUE CALLBACK ERROR: Processing failed - %s", err, exc_info=True)
-            return web.Response(status=500, text="Internal Server Error")    async def _process_value_events(self, events: list[Dict[str, Any]]) -> None:
+            return web.Response(status=500, text="Internal Server Error")
+
+    async def _process_value_events(self, events: list[Dict[str, Any]]) -> None:
         """Process value change events and update coordinator data."""
         if not self.coordinator.data:
             _LOGGER.warning("⚠️ VALUE PROCESSING: Coordinator data not available, ignoring value events")
