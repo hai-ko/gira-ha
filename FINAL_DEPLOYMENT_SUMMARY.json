@@ -1,0 +1,43 @@
+{
+  "deployment_status": "READY",
+  "validation_date": "2025-06-03",
+  "fixes_applied": [
+    {
+      "fix": "5-second default polling",
+      "file": "const.py",
+      "description": "Changed UPDATE_INTERVAL_SECONDS from 30 to 5"
+    },
+    {
+      "fix": "String-to-boolean conversion",
+      "file": "switch.py",
+      "description": "Fixed bool('0') = True bug with proper string parsing"
+    },
+    {
+      "fix": "Webhook interference elimination",
+      "file": "__init__.py",
+      "description": "Prevents orphaned webhooks when callbacks fail"
+    },
+    {
+      "fix": "Always poll for values",
+      "file": "__init__.py",
+      "description": "Coordinator always polls regardless of callback status"
+    },
+    {
+      "fix": "Individual datapoint polling",
+      "file": "api.py",
+      "description": "Uses individual polling, no batch requests"
+    }
+  ],
+  "expected_behavior": {
+    "callback_registration": "Will fail with 404 (normal)",
+    "polling_mode": "Pure 5-second polling",
+    "external_changes": "Detected within 5 seconds",
+    "webhook_handlers": "None registered when callbacks fail"
+  },
+  "deployment_steps": [
+    "1. Restart Home Assistant",
+    "2. Check logs for 'pure polling mode' messages",
+    "3. Test external state changes",
+    "4. Monitor for 5-second polling intervals"
+  ]
+}
