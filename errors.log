@@ -1,0 +1,6 @@
+2025-06-03 16:05:30.309 ERROR (MainThread) [custom_components.gira_x1.api] Failed to register callbacks: API request failed: 400 - {"error":{"code":"callbackTestFailed","message":"Callback test failed for serviceCallback."}}
+2025-06-03 16:05:30.310 WARNING (MainThread) [custom_components.gira_x1] Failed to register callbacks, using standard polling
+2025-06-03 16:05:35.452 WARNING (SyncWorker_3) [annotatedyaml.constructors] YAML file /config/custom_components/gira_x1/services.yaml contains duplicate key "description". Check lines 2 and 16
+2025-06-03 16:05:35.452 WARNING (SyncWorker_3) [annotatedyaml.constructors] YAML file /config/custom_components/gira_x1/services.yaml contains duplicate key "fields". Check lines 3 and 17
+2025-06-03 16:06:29.630 WARNING (MainThread) [custom_components.gira_x1.api] Unexpected content type '' for endpoint /api/values/a0at. Response: 
+2025-06-03 16:06:29.663 WARNING (MainThread) [custom_components.gira_x1.api] Unexpected content type '' for endpoint /api/values/a0at. Response:
