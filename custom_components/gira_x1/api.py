@@ -17,6 +17,7 @@ from .const import (
     API_UICONFIG,
     API_UICONFIG_UID,
     API_VALUES,
+    API_CALLBACKS_PATH,
     REQUEST_TIMEOUT,
     STATUS_OK,
     STATUS_UNAUTHORIZED,
@@ -495,3 +496,116 @@ class GiraX1Client:
             return True
         except (GiraX1ApiError, GiraX1AuthError):
             return False
+
+    async def register_callbacks(
+        self, 
+        value_callback_url: str, 
+        service_callback_url: str,
+        test_callbacks: bool = True
+    ) -> bool:
+        """Register callback URLs with the Gira X1 device.
+        
+        Args:
+            value_callback_url: URL for value change callbacks
+            service_callback_url: URL for service event callbacks  
+            test_callbacks: Whether to test the callbacks during registration
+            
+        Returns:
+            True if registration successful, False otherwise
+        """
+        try:
+            if not self._token:
+                _LOGGER.error("📞 Callback Registration: No authentication token available")
+                return False
+
+            _LOGGER.info("📞 CALLBACK REGISTRATION: Starting callback registration with Gira X1")
+            _LOGGER.info("📞   Value callback URL: %s", value_callback_url)
+            _LOGGER.info("📞   Service callback URL: %s", service_callback_url)
+            _LOGGER.info("📞   Test callbacks: %s", test_callbacks)
+
+            url = f"{self._base_url}{API_CLIENTS}/{self._token}{API_CALLBACKS_PATH}"
+            _LOGGER.debug("📞   Registration endpoint: %s", url)
+
+            payload = {
+                "valueCallback": value_callback_url,
+                "serviceCallback": service_callback_url,
+                "testCallbacks": test_callbacks
+            }
+            
+            _LOGGER.debug("📞   Registration payload: %s", payload)
+
+            async with async_timeout.timeout(REQUEST_TIMEOUT):
+                async with self._session.post(
+                    url,
+                    json=payload,
+                    headers={"Content-Type": "application/json"},
+                    ssl=False,  # Gira X1 uses self-signed certificates
+                ) as response:
+                    _LOGGER.debug("📞   Registration response status: %d", response.status)
+                    response_text = await response.text()
+                    _LOGGER.debug("📞   Registration response body: %s", response_text)
+
+                    if response.status == STATUS_OK:
+                        _LOGGER.info("✅ CALLBACK REGISTRATION SUCCESS: Callbacks registered successfully with Gira X1")
+                        return True
+                    elif response.status == 400:
+                        if "callbackTestFailed" in response_text:
+                            _LOGGER.warning("❌ CALLBACK REGISTRATION FAILED: Callback test failed - Gira X1 cannot reach callback URLs")
+                            _LOGGER.warning("📞   This indicates network connectivity issues between Gira X1 and Home Assistant")
+                            _LOGGER.warning("📞   Check firewall settings and network routing")
+                        else:
+                            _LOGGER.error("❌ CALLBACK REGISTRATION FAILED: Bad request - %s", response_text)
+                        return False
+                    elif response.status == 422:
+                        _LOGGER.error("❌ CALLBACK REGISTRATION FAILED: Callbacks must use HTTPS")
+                        return False
+                    else:
+                        _LOGGER.error("❌ CALLBACK REGISTRATION FAILED: HTTP %d - %s", response.status, response_text)
+                        return False
+
+        except asyncio.TimeoutError:
+            _LOGGER.error("❌ CALLBACK REGISTRATION FAILED: Timeout waiting for response from Gira X1")
+            return False
+        except Exception as err:
+            _LOGGER.error("❌ CALLBACK REGISTRATION FAILED: Unexpected error - %s", err, exc_info=True)
+            return False
+
+    async def unregister_callbacks(self) -> bool:
+        """Unregister callback URLs from the Gira X1 device.
+        
+        Returns:
+            True if unregistration successful, False otherwise
+        """
+        try:
+            if not self._token:
+                _LOGGER.debug("📞 Callback Unregistration: No token available, skipping")
+                return True
+
+            _LOGGER.info("📞 CALLBACK UNREGISTRATION: Removing callbacks from Gira X1")
+
+            url = f"{self._base_url}{API_CLIENTS}/{self._token}{API_CALLBACKS_PATH}"
+            _LOGGER.debug("📞   Unregistration endpoint: %s", url)
+
+            async with async_timeout.timeout(REQUEST_TIMEOUT):
+                async with self._session.delete(
+                    url,
+                    ssl=False,  # Gira X1 uses self-signed certificates
+                ) as response:
+                    _LOGGER.debug("📞   Unregistration response status: %d", response.status)
+                    response_text = await response.text()
+                    _LOGGER.debug("📞   Unregistration response body: %s", response_text)
+
+                    if response.status == STATUS_OK:
+                        _LOGGER.info("✅ CALLBACK UNREGISTRATION SUCCESS: Callbacks unregistered from Gira X1")
+                        return True
+                    else:
+                        _LOGGER.warning("⚠️ CALLBACK UNREGISTRATION WARNING: HTTP %d - %s", response.status, response_text)
+                        # Don't treat this as a critical error since we're likely shutting down
+                        return True
+
+        except asyncio.TimeoutError:
+            _LOGGER.warning("⚠️ CALLBACK UNREGISTRATION WARNING: Timeout - continuing shutdown")
+            return True
+        except Exception as err:
+            _LOGGER.warning("⚠️ CALLBACK UNREGISTRATION WARNING: Error - %s", err)
+            return True

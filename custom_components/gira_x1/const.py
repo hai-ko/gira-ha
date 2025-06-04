@@ -80,7 +80,21 @@ STATUS_UNAUTHORIZED: Final = 401
 STATUS_NOT_FOUND: Final = 404
 
 # Update intervals
-UPDATE_INTERVAL_SECONDS: Final = 5  # Pure polling mode with 5-second intervals
+UPDATE_INTERVAL_SECONDS: Final = 5  # Default polling mode with 5-second intervals
+FAST_UPDATE_INTERVAL_SECONDS: Final = 5  # Fast polling when callbacks fail
+CALLBACK_UPDATE_INTERVAL_SECONDS: Final = 300  # Slow fallback polling when callbacks work
+
+# API endpoints for callbacks
+API_CALLBACKS_PATH: Final = "/callbacks"
+API_CALLBACKS: Final = "callbacks"
+
+# Webhook paths for callbacks
+WEBHOOK_VALUE_CALLBACK_PATH: Final = "/api/gira_x1/callback/value"
+WEBHOOK_SERVICE_CALLBACK_PATH: Final = "/api/gira_x1/callback/service"
+
+# Configuration constants for callbacks
+CONF_CALLBACK_URL_OVERRIDE: Final = "callback_url_override"
+CONF_CALLBACK_TOKEN: Final = "callback_token"
 
 # Timeouts
 REQUEST_TIMEOUT: Final = 10
