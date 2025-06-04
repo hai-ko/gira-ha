@@ -54,11 +54,13 @@ class GiraX1ValueCallbackView(HomeAssistantView):
             events = data.get("events", [])
             
             # Multiple ways to detect test events based on Gira X1 behavior
+            # Real device events have: {"uid": "a0at", "value": "0"} 
+            # Test events typically have: empty events, explicit test flag, or missing uid/value
             is_test_event = (
                 len(events) == 0 or  # Empty event list
                 any(str(event.get("event", "")).lower() == "test" for event in events) or  # Explicit test event
                 data.get("test", False) or  # Test flag in data
-                (len(events) == 1 and not events[0].get("event"))  # Single empty event (test pattern)
+                (len(events) == 1 and not events[0].get("uid") and not events[0].get("value"))  # Single empty event (test pattern)
             )
             
             _LOGGER.info("🔔 VALUE CALLBACK ANALYSIS: Events=%d, IsTest=%s, TokenPresent=%s", 
@@ -165,11 +167,13 @@ class GiraX1ServiceCallbackView(HomeAssistantView):
             events = data.get("events", [])
             
             # Multiple ways to detect test events based on Gira X1 behavior
+            # Real service events typically have service/event data
+            # Test events typically have: empty events, explicit test flag, or missing service data
             is_test_event = (
                 len(events) == 0 or  # Empty event list
                 any(str(event.get("event", "")).lower() == "test" for event in events) or  # Explicit test event
                 data.get("test", False) or  # Test flag in data
-                (len(events) == 1 and not events[0].get("event"))  # Single empty event (test pattern)
+                (len(events) == 1 and not events[0].get("service") and not events[0].get("event"))  # Single empty event (test pattern)
             )
             
             _LOGGER.info("🔔 SERVICE CALLBACK ANALYSIS: Events=%d, IsTest=%s, TokenPresent=%s", 
