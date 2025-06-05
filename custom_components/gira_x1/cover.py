@@ -97,9 +97,9 @@ class GiraX1Cover(GiraX1Entity, CoverEntity):
             values = self.coordinator.data.get("values", {}) if self.coordinator.data else {}
             value = values.get(self._position_uid, 0)
             try:
-                # Convert string to float first, then to int for position
-                numeric_value = float(value) if isinstance(value, str) else value
-                return int(numeric_value)
+                # Convert and invert: device 0=open,100=closed -> HA 0=closed,100=open
+                raw = float(value) if isinstance(value, str) else value
+                return int(100 - raw)
             except (ValueError, TypeError):
                 return 0
         return None
@@ -111,9 +111,9 @@ class GiraX1Cover(GiraX1Entity, CoverEntity):
             values = self.coordinator.data.get("values", {}) if self.coordinator.data else {}
             value = values.get(self._slat_position_uid, 0)
             try:
-                # Convert string to float first, then to int for tilt position
-                numeric_value = float(value) if isinstance(value, str) else value
-                return int(numeric_value)
+                # Convert and invert tilt similarly
+                raw = float(value) if isinstance(value, str) else value
+                return int(100 - raw)
             except (ValueError, TypeError):
                 return 0
         return None
@@ -129,32 +129,35 @@ class GiraX1Cover(GiraX1Entity, CoverEntity):
     async def async_open_cover(self, **kwargs: Any) -> None:
         """Open the cover."""
         if self._position_uid:
-            await self.coordinator.api.set_value(self._position_uid, 100)
+            # Device expects 0 for open
+            await self.coordinator.api.set_value(self._position_uid, 0)
         elif self._up_down_uid:
             await self.coordinator.api.set_value(self._up_down_uid, 1)  # Up/Open
         else:
             _LOGGER.warning("No suitable data point found for opening cover %s", self._function["uid"])
             return
-            
+        
         await self.coordinator.async_request_refresh()
 
     async def async_close_cover(self, **kwargs: Any) -> None:
         """Close cover."""
         if self._position_uid:
-            await self.coordinator.api.set_value(self._position_uid, 0)
+            # Device expects 100 for close
+            await self.coordinator.api.set_value(self._position_uid, 100)
         elif self._up_down_uid:
             await self.coordinator.api.set_value(self._up_down_uid, 0)  # Down/Close
         else:
             _LOGGER.warning("No suitable data point found for closing cover %s", self._function["uid"])
             return
-            
+        
         await self.coordinator.async_request_refresh()
 
     async def async_set_cover_position(self, **kwargs: Any) -> None:
         """Move the cover to a specific position."""
         position = kwargs.get(ATTR_POSITION)
         if position is not None and self._position_uid:
-            await self.coordinator.api.set_value(self._position_uid, position)
+            # Invert position before sending: HA->device
+            await self.coordinator.api.set_value(self._position_uid, 100 - position)
             await self.coordinator.async_request_refresh()
         else:
             _LOGGER.warning("Position setting not supported for cover %s", self._function["uid"])
@@ -163,7 +166,8 @@ class GiraX1Cover(GiraX1Entity, CoverEntity):
         """Move the cover tilt to a specific position."""
         position = kwargs.get(ATTR_POSITION)
         if position is not None and self._slat_position_uid:
-            await self.coordinator.api.set_value(self._slat_position_uid, position)
+            # Invert tilt before sending: HA->device
+            await self.coordinator.api.set_value(self._slat_position_uid, 100 - position)
             await self.coordinator.async_request_refresh()
         else:
             _LOGGER.warning("Tilt position setting not supported for cover %s", self._function["uid"])
