@@ -6,6 +6,7 @@ from typing import Any, Optional
 
 from homeassistant.components.cover import (
     ATTR_POSITION,
+    ATTR_TILT_POSITION,
     CoverDeviceClass,
     CoverEntity,
     CoverEntityFeature,
@@ -72,9 +73,14 @@ class GiraX1Cover(GiraX1Entity, CoverEntity):
         self._slat_position_uid = self._data_points.get("Slat-Position")
         self._movement_uid = self._data_points.get("Movement")  # Movement status
 
+        # Debug logging for data points
+        _LOGGER.debug("Cover %s data points: %s", self._function["uid"], self._data_points)
+        _LOGGER.debug("Cover %s slat position UID: %s", self._function["uid"], self._slat_position_uid)
+
         # Add slat support if available
         if self._slat_position_uid:
             self._attr_supported_features |= CoverEntityFeature.SET_TILT_POSITION
+            _LOGGER.debug("Cover %s: Added tilt support with UID %s", self._function["uid"], self._slat_position_uid)
 
     @property
     def device_info(self):
@@ -164,13 +170,20 @@ class GiraX1Cover(GiraX1Entity, CoverEntity):
 
     async def async_set_cover_tilt_position(self, **kwargs: Any) -> None:
         """Move the cover tilt to a specific position."""
-        position = kwargs.get(ATTR_POSITION)
+        position = kwargs.get(ATTR_TILT_POSITION)
+        _LOGGER.debug("Cover %s: Tilt position request - position=%s, slat_uid=%s", 
+                     self._function["uid"], position, self._slat_position_uid)
+        
         if position is not None and self._slat_position_uid:
             # Invert tilt before sending: HA->device
-            await self.coordinator.api.set_value(self._slat_position_uid, 100 - position)
+            device_position = 100 - position
+            _LOGGER.debug("Cover %s: Setting tilt position %s -> device %s", 
+                         self._function["uid"], position, device_position)
+            await self.coordinator.api.set_value(self._slat_position_uid, device_position)
             await self.coordinator.async_request_refresh()
         else:
-            _LOGGER.warning("Tilt position setting not supported for cover %s", self._function["uid"])
+            _LOGGER.warning("Tilt position setting not supported for cover %s (position=%s, slat_uid=%s)", 
+                           self._function["uid"], position, self._slat_position_uid)
 
     async def async_stop_cover(self, **kwargs: Any) -> None:
         """Stop the cover."""
